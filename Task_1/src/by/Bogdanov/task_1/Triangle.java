@@ -29,13 +29,24 @@ public class Triangle {
         double cx = triangle.c.x;
         double cy = triangle.c.y;
 
-        double ab = Math.pow((bx-ax),2) + Math.pow((by-ay),2);
-        double bc = Math.pow((cx-bx),2) + Math.pow((cy-by),2);
-        double ca = Math.pow((ax-cx),2) + Math.pow((ay-cy),2);
-        //double ab = (bx - ax) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y);
-        //double bc = (c.x - b.x) * (c.x - b.x) + (c.y - b.y) * (c.y - b.y);
-        //double ca = (a.x - c.x) * (a.x - c.x) + (a.y - c.y) * (a.y - c.y);
-        return Math.sqrt(ab) + Math.sqrt(bc) + Math.sqrt(ca);
+        double a = Math.sqrt(Math.pow((bx-ax),2) + Math.pow((by-ay),2));
+        double b = Math.sqrt(Math.pow((cx-bx),2) + Math.pow((cy-by),2));
+        double c = Math.sqrt(Math.pow((cx-ax),2) + Math.pow((cy-ay),2));
+        return a + b + c;
+    }
+    public static double area(Triangle triangle){
+        double ax = triangle.a.x;
+        double ay = triangle.a.y;
+        double bx = triangle.b.x;
+        double by = triangle.b.y;
+        double cx = triangle.c.x;
+        double cy = triangle.c.y;
 
+        double a = Math.sqrt(Math.pow((bx-ax),2) + Math.pow((by-ay),2));
+        double b = Math.sqrt(Math.pow((cx-bx),2) + Math.pow((cy-by),2));
+        double c = Math.sqrt(Math.pow((cx-ax),2) + Math.pow((cy-ay),2));
+
+        double p = 0.5 * (a+b+c);
+        return Math.sqrt(p*(p-a)*(p-b)*(p-c));
     }
 }

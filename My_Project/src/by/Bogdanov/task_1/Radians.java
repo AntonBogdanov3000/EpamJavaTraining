@@ -7,16 +7,21 @@ public class Radians {
     public Radians(double rad){
         this.countOfRadians = rad;
     }
-    public static String degrees(double a){
-        double degree = a * (180 / Math.PI);
-        return "Degrees " + String.format("%.3f",degree);
+    public void degrees(){
+        double degree = this.countOfRadians * (180 / Math.PI);
+        System.out.println("Degrees " + String.format("%.3f",degree));
     }
-    public  static String minutes(double a){
-        double minute = (a * (180 / Math.PI))/60;
-        return "Minutes " + String.format("%.3f",minute);
+    public void minutes(){
+        double minute = (this.countOfRadians * (180 / Math.PI))/60;
+        System.out.println("Minutes " + String.format("%.3f",minute));
     }
-    public static String seconds(double a){
-        double second = (a * (180 /Math.PI)/60)/60;
-        return "Seconds " + String.format("%.3f",second);
+    public void seconds(){
+        double second = (this.countOfRadians * (180 /Math.PI)/60)/60;
+        System.out.println("Seconds " + String.format("%.3f",second));
+    }
+    public void start(){
+        this.minutes();
+        this.seconds();
+        this.degrees();
     }
 }

@@ -10,7 +10,7 @@ public class Circle {
         this.inner = inner;
         this.outer = outer;
     }
-    public static  double sqare(Circle circle){
-        return Math.PI * ((circle.outer * circle.outer) - (circle.inner * circle.inner));
+    public void sqare(){
+        System.out.println("Circle area " + String.format("%.2f",Math.PI * ((this.outer * this.outer) - (this.inner * this.inner))));
     }
 }

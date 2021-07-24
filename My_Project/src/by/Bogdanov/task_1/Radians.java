@@ -17,7 +17,7 @@ public class Radians {
     }
     public void seconds(){
         double second = (this.countOfRadians * (180 /Math.PI)/60)/60;
-        System.out.println("Seconds " + String.format("%.3f",second));
+        System.out.println("Seconds " + String.format("%.3f", second));
     }
     public void start(){
         this.minutes();

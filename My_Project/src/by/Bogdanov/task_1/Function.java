@@ -7,7 +7,7 @@ public class Function {
         this.a = a;
         this.b = b;
     }
-    public static double returnFunc(int a, int b){
-        return 2 * a + (b-2) * 5;
+    public void returnFunc(){
+        System.out.println("Result of function "+2 * this.a + (this.b-2) * 5);
     }
 }

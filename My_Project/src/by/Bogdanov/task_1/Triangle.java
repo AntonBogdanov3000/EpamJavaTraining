@@ -1,16 +1,15 @@
 package by.Bogdanov.task_1;
 
 public class Triangle {
-    Point a;
-    Point b;
-    Point c;
+    public Point a;
+    public Point b;
+    public Point c;
 
     public Triangle (Point a , Point b, Point c){
         this.a = a;
         this.b = b;
         this.c = c;
     }
-
 
     public static class Point{
         int x;
@@ -48,5 +47,9 @@ public class Triangle {
 
         double p = 0.5 * (a+b+c);
         return Math.sqrt(p*(p-a)*(p-b)*(p-c));
+    }
+    public void triangleStart(){
+        System.out.println("Perimeter of triangle is ..." + String.format("%.2f",perimeter(this)));
+        System.out.println("Area of triangle is..." + String.format("%.2f",area(this)));
     }
 }

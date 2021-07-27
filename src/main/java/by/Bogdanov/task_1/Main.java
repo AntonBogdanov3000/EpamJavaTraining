@@ -3,12 +3,19 @@ package by.Bogdanov.task_1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
-public class Test {
+public class Main {
+private static final Logger log = LogManager.getLogger(Main.class);
+
     public static void main(String[] args) throws IOException {
+       log.info("Start of main");
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter count of radians...");
+        System.out.println("Enter count of radians");
         String s = reader.readLine();
+
         new Radians(Double.parseDouble(s)).start();
 
         System.out.println("Enter X...");
@@ -36,6 +43,7 @@ public class Test {
         String cy = reader.readLine();
         Triangle.Point c = new Triangle.Point(Integer.parseInt(cx),Integer.parseInt(cy));
         new Triangle(a, b, c).triangleStart();
+
 
     }
 }

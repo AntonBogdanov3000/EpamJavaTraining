@@ -3,6 +3,7 @@ package by.Bogdanov.task_1;
 
 
 public class Circle {
+
     int inner;
     int outer;
 

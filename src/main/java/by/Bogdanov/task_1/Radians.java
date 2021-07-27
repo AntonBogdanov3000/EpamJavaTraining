@@ -1,4 +1,4 @@
-package task_1;
+package by.Bogdanov.task_1;
 
 public class Radians {
 

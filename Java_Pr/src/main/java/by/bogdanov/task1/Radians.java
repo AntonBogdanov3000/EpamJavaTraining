@@ -8,6 +8,7 @@ public class Radians {
 
     public Radians(double rad){
         this.countOfRadians = rad;
+        log.info("Radians created");
     }
     public double degrees(){
         return  this.countOfRadians * (180 / Math.PI);

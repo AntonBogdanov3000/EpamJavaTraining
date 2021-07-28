@@ -1,14 +1,19 @@
 package by.bogdanov.task1;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Triangle {
-    public Point a;
-    public Point b;
-    public Point c;
+    private static Logger log = LogManager.getLogger(Triangle.class);
+
+          Point a;
+          Point b;
+          Point c;
 
     public Triangle (Point a , Point b, Point c){
         this.a = a;
         this.b = b;
         this.c = c;
+        log.info("Triangle created");
     }
 
     public static class Point{

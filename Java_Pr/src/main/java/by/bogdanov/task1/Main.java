@@ -43,6 +43,7 @@ public class Main {
         String cy = reader.readLine();
         Triangle.Point c = new Triangle.Point(Integer.parseInt(cx),Integer.parseInt(cy));
         new Triangle(a, b, c).triangleStart();
+        log.info("End of Main...");
 
     }
 }

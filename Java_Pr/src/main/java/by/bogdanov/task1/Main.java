@@ -22,7 +22,7 @@ public class Main {
         String x = reader.readLine();
         System.out.println("Enter Y...");
         String y = reader.readLine();
-        new Function(Integer.parseInt(x),Integer.parseInt(y)).returnFunc();
+        System.out.println("Result is " + new Function(Integer.parseInt(x),Integer.parseInt(y)).returnFunc());
 
         System.out.println("Enter inner size of the circle");
         String in = reader.readLine();

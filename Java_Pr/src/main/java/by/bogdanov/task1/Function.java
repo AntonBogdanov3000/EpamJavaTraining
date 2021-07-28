@@ -9,8 +9,7 @@ public class Function {
         this.b = b;
     }
 
-    public void returnFunc(){
-
-        System.out.println("Result of function "+2 * this.a + (this.b-2) * 5);
+    public int returnFunc( ){
+        return  2 * this.a + (this.b-2) * 5;
     }
 }

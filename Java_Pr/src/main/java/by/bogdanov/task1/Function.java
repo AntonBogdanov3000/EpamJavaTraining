@@ -11,7 +11,6 @@ public class Function {
         this.a = a;
         this.b = b;
         log.info("Function created");
-
     }
 
     public int returnFunc( ){

@@ -15,11 +15,9 @@ public class Radians {
     }
     public double minutes(){
         return this.degrees() * 60;
-        //System.out.println("Minutes " + String.format("%.3f",minute));
     }
     public double seconds(){
         return this.minutes() * 60;
-       // System.out.println("Seconds " + String.format("%.3f", second));
     }
     public void start(){
 

@@ -1,4 +1,4 @@
-package test;
+package test.task1;
 
 import by.bogdanov.task1.Circle;
 import org.testng.annotations.Test;

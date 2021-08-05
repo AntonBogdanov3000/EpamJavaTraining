@@ -1,10 +1,13 @@
 package by.bogdanov.task2;
 
+/**
+ * three numbers A B C.
+ * define which of these is equal to D
+ * if no one is not equal to D, calculate MAX value of them (A B C)
+ */
+
 public class ThreeNumbers {
 
-    public static void main(String[] args) {
-        compareToD(2,3,5,4);
-    }
     public static void compareToD(int a,int b,int c,int d){
         if(a == d){
             System.out.println("A = D"); }

@@ -1,10 +1,10 @@
 package by.bogdanov.task2;
 
-public class Progression {
+/**
+ * for current value define arithmetic progression
+ */
 
-    public static void main(String[] args) {
-        arithmeticProgress("963");
-    }
+public class Progression {
 
     public static void arithmeticProgress(String number){
         char[] c = number.toCharArray();

@@ -25,7 +25,8 @@ public class Enter {
             Main.startOfTriangle();
         }else if(s.equals("5")){
             Main.startOfFigureArea();
-        }
+        }else
+            System.out.println("Wrong task number");
         log.info("End");
     }
 

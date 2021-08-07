@@ -1,4 +1,4 @@
-package Task02;
+package by.bogdanov.Task02;
 
 /**
  * Print multiplication table for number 3

@@ -1,4 +1,4 @@
-package Task02;
+package by.bogdanov.Task02;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

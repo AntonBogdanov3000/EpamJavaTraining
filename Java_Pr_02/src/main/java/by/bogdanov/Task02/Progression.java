@@ -1,4 +1,4 @@
-package Task02;
+package by.bogdanov.Task02;
 
 /**
  * for current value define arithmetic progression

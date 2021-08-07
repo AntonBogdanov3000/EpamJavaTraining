@@ -1,4 +1,4 @@
-package Task02;
+package by.bogdanov.Task02;
 
 /**
  * compare current number and number 3

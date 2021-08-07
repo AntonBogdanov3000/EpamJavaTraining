@@ -1,4 +1,4 @@
-package Task02;
+package by.bogdanov.Task02;
 /**
  * enter two numbers A & B and characters (+, –, /, *)
  * calculate value Z

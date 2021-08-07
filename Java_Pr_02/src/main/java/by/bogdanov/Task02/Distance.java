@@ -1,4 +1,4 @@
-package Task02;
+package by.bogdanov.Task02;
 
 /**
  * two points А(х1, у1) & В(х2, у2).

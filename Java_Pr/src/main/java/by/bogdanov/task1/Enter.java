@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Enter {
-    private static Logger log = LogManager.getLogger(Enter.class);
+    private final static Logger log = LogManager.getLogger(Enter.class);
 
     public static void main(String[] args) throws IOException {
-        log.info("Start");
+        log.info("Start of main method");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter number of task : 1,2,3,4,5 ");
 
@@ -20,7 +20,7 @@ public class Enter {
         }else if(s.equals("2")){
             Main.startOfFunction();
         }else if (s.equals("3")){
-            Main.startofCircleArea();
+            Main.startofRingArea();
         }else if(s.equals("4")){
             Main.startOfTriangle();
         }else if(s.equals("5")){

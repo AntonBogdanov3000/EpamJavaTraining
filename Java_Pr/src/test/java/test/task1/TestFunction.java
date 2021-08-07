@@ -31,14 +31,14 @@ public class TestFunction {
     @Test(dataProvider = "Positive")
     public void testOfFunctionWithPositive(int []ab, int c){
         function = new Function(ab[0],ab[1]);
-        int actual = function.returnFunc();
+        double actual = function.returnFunc();
         int expected = c;
         assertEquals(actual, expected);
     }
     @Test(dataProvider = "Negative_in")
     public void testOfFunctionWithNegative(int []ab, int c){
         function = new Function(ab[0], ab[1]);
-        int actual = function.returnFunc();
+        double actual = function.returnFunc();
         int expected = c;
         assertEquals(actual, expected);
     }

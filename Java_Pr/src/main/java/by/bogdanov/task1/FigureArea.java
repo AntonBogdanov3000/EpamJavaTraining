@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public  class  FigureArea {
-    private static Logger log = LogManager.getLogger(FigureArea.class);
+    private final static Logger log = LogManager.getLogger(FigureArea.class);
     Point[] points;
     public FigureArea(Point[] area){
         this.points = area;

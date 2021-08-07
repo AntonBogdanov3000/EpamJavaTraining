@@ -3,17 +3,17 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class Function {
-    private Logger log = LogManager.getLogger(Function.class);
-    int a;
-    int b;
+    private final static Logger log = LogManager.getLogger(Function.class);
+    double a;
+    double b;
 
-    public Function(int a, int b){
+    public Function(double a, double b){
         this.a = a;
         this.b = b;
         log.info("Function created");
     }
 
-    public int returnFunc( ){
+    public double returnFunc( ){
         return  2 * this.a + (this.b-2) * 5;
     }
 }

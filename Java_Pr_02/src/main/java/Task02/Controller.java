@@ -1,4 +1,4 @@
-package by.bogdanov.task2;
+package Task02;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -3,7 +3,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class Triangle {
-    private static Logger log = LogManager.getLogger(Triangle.class);
+    private final static Logger log = LogManager.getLogger(Triangle.class);
 
           Point a;
           Point b;
@@ -13,12 +13,12 @@ public class Triangle {
         this.a = a;
         this.b = b;
         this.c = c;
-        log.info("Triangle created");
+        log.debug("Triangle created");
     }
 
     public static class Point{
-        int x;
-        int y;
+        double x;
+        double y;
 
         public Point(int x, int y){
             this.x = x;

@@ -22,12 +22,12 @@ public class Main {
             System.out.println("Result is " + new Function(Integer.parseInt(x), Integer.parseInt(y)).returnFunc());
         }
 
-        public static void startofCircleArea() throws IOException{
-            System.out.println("Enter inner size of the circle");
+        public static void startofRingArea() throws IOException{
+            System.out.println("Enter inner size of the ring");
             String in = reader.readLine();
-            System.out.println("Enter outer size of the circle");
+            System.out.println("Enter outer size of the ring");
             String out = reader.readLine();
-            System.out.println("Area of circle is " + String.format("%.2f", new Circle(Integer.parseInt(in), Integer.parseInt(out)).sqare()));
+            System.out.println("Area of ring is " + String.format("%.2f", new Ring(Integer.parseInt(in), Integer.parseInt(out)).sqare()));
         }
 
         public static void startOfTriangle()throws IOException{

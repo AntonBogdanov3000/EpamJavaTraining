@@ -1,4 +1,4 @@
-package by.bogdanov.task2;
+package Task02;
 
 /**
  * three numbers A B C.

@@ -3,7 +3,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class Radians {
-    private static Logger log = LogManager.getLogger(Radians.class);
+    private final static Logger log = LogManager.getLogger(Radians.class);
     double countOfRadians;
 
     public Radians(double rad){

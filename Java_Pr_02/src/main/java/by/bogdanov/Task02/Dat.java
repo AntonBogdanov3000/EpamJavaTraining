@@ -1,4 +1,4 @@
-package by.bogdanov.Task02;
+package by.bogdanov.task02;
 
 /**
  * define correct of entered data(day & month)

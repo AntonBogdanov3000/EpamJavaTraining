@@ -1,4 +1,4 @@
-package by.bogdanov.Task02;
+package by.bogdanov.task02;
 
 /**
  * two points А(х1, у1) & В(х2, у2).
@@ -17,8 +17,8 @@ public class Distance {
     }
 
     public static class Point{
-        int x;
-        int y;
+        public int x;
+        public int y;
 
         public Point(int x, int y){
             this.x = x;

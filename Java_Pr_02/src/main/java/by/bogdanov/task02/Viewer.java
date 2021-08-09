@@ -1,4 +1,4 @@
-package by.bogdanov.Task02;
+package by.bogdanov.task02;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class Viewer {
     public static Locale locale;
     public static ResourceBundle rb;
-    private static final Logger log = LogManager.getLogger(Viewer.class);
+    static  Logger log = LogManager.getLogger(Viewer.class);
     public static void main(String[] args) throws IOException {
 
         log.info("Start of viewer");
@@ -38,7 +38,7 @@ public class Viewer {
         if(numberOfTask.equals("1")){
             Controller.startCompare();}
         if(numberOfTask.equals("2")){
-            Controller.startEnterAdate();}
+            Controller.startEnterDate();}
         if(numberOfTask.equals("3")){
             Controller.startDistanceBetweenPoints();}
         if(numberOfTask.equals("4")){

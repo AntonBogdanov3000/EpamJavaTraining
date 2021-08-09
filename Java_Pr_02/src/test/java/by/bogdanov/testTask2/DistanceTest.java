@@ -1,6 +1,6 @@
-package test.task2;
+package by.bogdanov.testTask2;
 
-import by.bogdanov.task2.Distance;
+import by.bogdanov.task02.Distance;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 

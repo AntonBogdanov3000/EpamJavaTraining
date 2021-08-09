@@ -1,4 +1,4 @@
-package by.bogdanov.Task02;
+package by.bogdanov.task02;
 
 /**
  * for current value define arithmetic progression
@@ -6,7 +6,7 @@ package by.bogdanov.Task02;
 
 public class Progression {
 
-    public static void arithmeticProgress(String number){
+    public static boolean arithmeticProgress(String number){
         char[] c = number.toCharArray();
         int a = c[1]-c[0];
         int b = 0;
@@ -20,8 +20,8 @@ public class Progression {
            }
         }
         if(b==c.length-1){
-            System.out.println("True");
-        }else System.out.println("False");
+            return true;
+        }else return false;
 
     }
 }

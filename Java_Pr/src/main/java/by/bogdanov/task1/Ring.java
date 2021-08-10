@@ -1,7 +1,7 @@
 package by.bogdanov.task1;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
+//TODO: rename Circle,int
 public class Ring {
     private final static Logger log = LogManager.getLogger(Ring.class);
     public double inner;

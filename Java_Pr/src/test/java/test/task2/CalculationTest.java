@@ -1,8 +1,9 @@
-package by.bogdanov.testTask2;
-import by.bogdanov.task02.Calculation;
+package test.task2;
+import by.bogdanov.task2.Calculation;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class CalculationTest {
 

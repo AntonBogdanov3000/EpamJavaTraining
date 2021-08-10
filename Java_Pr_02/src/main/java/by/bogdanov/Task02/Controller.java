@@ -6,8 +6,11 @@ import java.io.InputStreamReader;
 
 public class Controller {
     public  static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    public String numberOfTask;
 
-
+    public Controller(String numberOfTask){
+    this.numberOfTask = numberOfTask;
+    }
 
     public static void startCompare() throws IOException{
         System.out.println(Viewer.rb.getString("str2"));

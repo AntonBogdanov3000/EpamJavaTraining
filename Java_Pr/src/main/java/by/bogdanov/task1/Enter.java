@@ -16,15 +16,15 @@ public class Enter {
 
         String s = reader.readLine();
         if(s.equals("1")){
-            Controller.startOfRadians();
+            Main.startOfRadians();
         }else if(s.equals("2")){
-            Controller.startOfFunction();
+            Main.startOfFunction();
         }else if (s.equals("3")){
-            Controller.startofRingArea();
+            Main.startofRingArea();
         }else if(s.equals("4")){
-            Controller.startOfTriangle();
+            Main.startOfTriangle();
         }else if(s.equals("5")){
-            Controller.startOfFigureArea();
+            Main.startOfFigureArea();
         }else
             System.out.println("Wrong task number");
         log.info("End");

@@ -1,4 +1,8 @@
-package by.bogdanov.Task02;
+package by.bogdanov.task02;
+
+/**
+ * print values of Y
+ */
 
 public class TableOfFunctionValues {
 

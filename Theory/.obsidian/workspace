@@ -1,0 +1,95 @@
+{
+  "main": {
+    "id": "d10f5bb7d5f29991",
+    "type": "split",
+    "children": [
+      {
+        "id": "31d2ee8026969125",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Java_Fundamentals/Data types.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d771c671b15684ab",
+    "type": "split",
+    "children": [
+      {
+        "id": "84e9a43840aad8ae",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9a91c398e9374c0b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "2841d566ba5b4bd4",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "91e666803fa32ac0",
+    "type": "split",
+    "children": [
+      {
+        "id": "1ba3cf1d09068eb9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "de0c7f361982354d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Java_Fundamentals/Data types.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "31d2ee8026969125",
+  "lastOpenFiles": [
+    "Java_Fundamentals/Data types.md",
+    "Data types.md",
+    "Без названия.md"
+  ]
+}

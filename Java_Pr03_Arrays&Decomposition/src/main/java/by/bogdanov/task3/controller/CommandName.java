@@ -1,5 +1,9 @@
 package by.bogdanov.task3.controller;
 
+/**
+ * List of commands for application
+ */
+
 public enum CommandName {
     BUBBLE_SORT,
     INSERT_SORT,
@@ -9,6 +13,7 @@ public enum CommandName {
     MATRIX_TR,
     MATRIX_SUM,
     MATRIX_MULT,
-    MATRIX_SUB
+    MATRIX_SUB,
+    CREATE_MATRIX
 
 }

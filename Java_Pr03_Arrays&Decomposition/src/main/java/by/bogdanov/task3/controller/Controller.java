@@ -11,7 +11,7 @@ public final class Controller {
         Viewer.log.info("Controller is working ...");
         Command executeCommand;
         executeCommand = provider.getCommand(request);
-        Viewer.log.info("Selected command  " + executeCommand.toString() );
+        Viewer.log.info("Selected command  " + executeCommand);
         executeCommand.execute();
 
     }

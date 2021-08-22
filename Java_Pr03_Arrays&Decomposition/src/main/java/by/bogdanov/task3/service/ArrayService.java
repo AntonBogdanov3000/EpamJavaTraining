@@ -8,5 +8,7 @@ public interface ArrayService {
     Array insertSort(Array array);
     Array shakeSort(Array array);
     Array selectionSort(Array array);
-    Array createArray();
+    Array createArray(int size);
+
+
 }

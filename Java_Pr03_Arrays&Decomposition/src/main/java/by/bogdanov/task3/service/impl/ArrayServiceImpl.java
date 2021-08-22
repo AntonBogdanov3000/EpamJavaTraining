@@ -11,11 +11,8 @@ public class ArrayServiceImpl implements ArrayService{
 
     @Override
     public Array bubbleSort(Array array) {
+        System.out.println("Current array is " + array.toString() + "\n");
         Viewer.log.info("Bubble sort is start");
-
-        DaoFactory objectFactory = DaoFactory.getDaoFactory();
-        ArrayDao dao = objectFactory.getArrayDao();
-        dao.fillArray(array);
 
         for(int i = 0; i < array.arr.length - 1 ; i++){
             for(int j = i + 1; j < array.arr.length; j++){
@@ -30,11 +27,8 @@ public class ArrayServiceImpl implements ArrayService{
 
     @Override
     public Array insertSort(Array array){
+        System.out.println("Current array is " + array.toString() + "\n");
         Viewer.log.info("Insert sort is start");
-
-        DaoFactory objectFactory = DaoFactory.getDaoFactory();
-        ArrayDao dao = objectFactory.getArrayDao();
-        dao.fillArray(array);
 
         for(int i = 1; i < array.arr.length; i++){
             for (int j = i; j > 0 && array.arr[j-1] > array.arr[j]; j--){
@@ -48,11 +42,8 @@ public class ArrayServiceImpl implements ArrayService{
 
     @Override
     public Array shakeSort(Array array){
+        System.out.println("Current array is " + array.toString() + "\n");
         Viewer.log.info("Shake sort is start");
-
-        DaoFactory objectFactory = DaoFactory.getDaoFactory();
-        ArrayDao dao = objectFactory.getArrayDao();
-        dao.fillArray(array);
 
         for (int j = 0; j < array.arr.length; j++) {
             for (int i = 0; i < array.arr.length - 1; i++) {
@@ -75,11 +66,8 @@ public class ArrayServiceImpl implements ArrayService{
 
     @Override
     public Array selectionSort(Array array){
+        System.out.println("Current array is " + array.toString() + "\n");
         Viewer.log.info("Selection sort is start");
-
-        DaoFactory objectFactory = DaoFactory.getDaoFactory();
-        ArrayDao dao = objectFactory.getArrayDao();
-        dao.fillArray(array);
 
         for(int i = 0; i < array.arr.length - 1; i++){
             int min = i;
@@ -95,8 +83,11 @@ public class ArrayServiceImpl implements ArrayService{
         return array;
     }
     @Override
-    public Array createArray(){
-        return new Array();
+    public Array createArray(int size){
+        DaoFactory dao = DaoFactory.getDaoFactory();
+        ArrayDao arrayDao = dao.getArrayDao();
+        return arrayDao.fillArray(new Array(size));
     }
+
 
 }

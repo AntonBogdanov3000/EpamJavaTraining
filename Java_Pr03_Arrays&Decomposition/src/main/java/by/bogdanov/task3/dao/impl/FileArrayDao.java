@@ -8,7 +8,6 @@ public class FileArrayDao implements ArrayDao{
 
     @Override
     public Array fillArray(Array array){
-        array.arr = new int[10];
         for (int i=0; i < array.arr.length; i++){
             array.arr[i] = (int) (Math.random() * 10);
         }

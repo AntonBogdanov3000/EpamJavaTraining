@@ -8,7 +8,9 @@ import by.bogdanov.task3.service.factory.ServiceFactory;
 
 public class CreateMatrixCommand implements Command {
     @Override
-    public void execute(){
+    public void execute() {
+        ServiceFactory serviceFactory = ServiceFactory.getServiceFactory();
+        MatrixService matrixService  = serviceFactory.getMatrixService();
 
     }
 }

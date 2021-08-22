@@ -2,8 +2,6 @@ package by.bogdanov.task3.controller;
 
 import by.bogdanov.task3.controller.impl.*;
 import by.bogdanov.task3.controller.command.Command;
-import by.bogdanov.task3.viewer.Viewer;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +19,7 @@ final class CommandProvider {
      listOfCommands.put(CommandName.MATRIX_SUM, new SumOfMatrixCommand());
      listOfCommands.put(CommandName.MATRIX_MULT, new MultiplicationOfMatrixCommand());
      listOfCommands.put(CommandName.MATRIX_SUB, new SubtractionOfMatrixCommand());
+     listOfCommands.put(CommandName.CREATE_MATRIX, new CreateMatrixCommand());
     }
     public Command getCommand(String command){
         Command comm = listOfCommands.get(CommandName.valueOf(command));

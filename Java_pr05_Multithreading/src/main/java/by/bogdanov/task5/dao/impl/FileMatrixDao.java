@@ -20,13 +20,12 @@ public class FileMatrixDao implements MatrixDao {
               for(int i=0; i<size; i++){
                   String[] s = numbers.split(" ");
                   for(int j=0; j<size; j++){
-                      matrix.matrix[i][j] = Integer.parseInt(s[count]);
+                      matrix.setMatrix(i,j,Integer.parseInt(s[count]));
                       count++;
                   }
                   numbers = bufferedReader.readLine();
                   count = 0;
               }
-
             }
         return matrix;
     }

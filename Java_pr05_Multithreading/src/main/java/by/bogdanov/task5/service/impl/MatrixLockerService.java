@@ -1,33 +1,30 @@
 package by.bogdanov.task5.service.impl;
 
 import by.bogdanov.task5.bean.Matrix;
-import by.bogdanov.task5.dao.MatrixDao;
-import by.bogdanov.task5.dao.factory.DaoFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.TimeUnit;
 
-public class MatrixSemaphoreService {
-    public static Logger log = LogManager.getLogger(MatrixSemaphoreService.class);
-    public static DaoFactory daoFactory = DaoFactory.getDaoFactory();
-    public static MatrixDao matrixDao = daoFactory.getMatrixDao();
+public class MatrixLockerService {
+    public static Logger log = LogManager.getLogger(MatrixLockerService.class);
 
     public static class MyThread implements Runnable{
         Matrix matrix;
-        Semaphore semaphore;
         int number;
+        ReentrantLock locker;
         static int countForGetNumber = 0;
         static int countForRun = 0;
         static int countOfThreads;
 
 
-        public MyThread(Matrix matrix,Semaphore semaphore){
+        public MyThread(Matrix matrix,ReentrantLock locker){
             this.matrix = matrix;
-            this.semaphore = semaphore;
+            this.locker = locker;
+
         }
         public int getCountOfThreads(){
             try{
@@ -41,9 +38,9 @@ public class MatrixSemaphoreService {
                 return countOfThreads;
             }
         }
-        public void getNumber(MyThread t){
+        public void getNumber(MatrixLockerService.MyThread t){
             try {
-                t.semaphore.acquire();
+                locker.lock();
                 FileReader fileReader = new FileReader("C:\\Users\\Оксана\\Desktop\\JavaTraining\\MyProject\\Java_pr05_Multithreading\\src\\main\\resources\\Threads");
                 BufferedReader reader = new BufferedReader(fileReader);
                 reader.readLine();
@@ -52,7 +49,7 @@ public class MatrixSemaphoreService {
                 ++countForGetNumber;
                 log.info(Thread.currentThread().getName()+" take a number " + this.number);
                 TimeUnit.SECONDS.sleep(1);
-                t.semaphore.release();
+                locker.unlock();
             }catch (IOException | InterruptedException e){
                 System.out.println(e.getMessage());
             }
@@ -61,10 +58,10 @@ public class MatrixSemaphoreService {
         public void run (){
             try {
                 getNumber(this);
-                semaphore.acquire();
+                locker.lock();
                 matrix.setMatrix(countForRun,countForRun,this.number);
                 log.info(Thread.currentThread().getName()+" put "+ this.number);
-                semaphore.release();
+                locker.unlock();
                 ++countForRun;
                 TimeUnit.MILLISECONDS.sleep(200);
                 System.out.println(matrix);
@@ -74,3 +71,4 @@ public class MatrixSemaphoreService {
         }
     }
 }
+

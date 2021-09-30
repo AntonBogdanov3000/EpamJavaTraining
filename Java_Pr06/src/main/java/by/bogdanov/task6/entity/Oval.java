@@ -26,7 +26,6 @@ public class Oval {
     public int getId() {
         return id;
     }
-
     public String toString(){
      return this.id + ": " + this.pointA + " " + this.pointB;
     }

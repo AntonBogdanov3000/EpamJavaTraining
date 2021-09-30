@@ -18,5 +18,17 @@ public class Point {
         public String toString(){
             return this.x + "-" + this.y;
         }
+        @Override
+        public boolean equals(Object o){
+            if(this == o) return true;
+            if(o == null) return false;
+            if(getClass() != o.getClass()) return false;
+
+            Point point = (Point) o;
+            if (x != point.x) return false;
+            if (y != point.y) return false;
+
+            return true;
+        }
     }
 

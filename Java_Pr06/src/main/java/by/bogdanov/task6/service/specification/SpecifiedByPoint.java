@@ -1,10 +1,7 @@
 package by.bogdanov.task6.service.specification;
 
-import by.bogdanov.task6.dao.Creator;
 import by.bogdanov.task6.entity.Oval;
 import by.bogdanov.task6.entity.Point;
-import by.bogdanov.task6.service.ServiceException;
-import by.bogdanov.task6.service.specification.Specification;
 
 public class SpecifiedByPoint implements Specification {
 
@@ -16,13 +13,10 @@ public class SpecifiedByPoint implements Specification {
     private void setPoint(Point point){
         this.point = point;
     }
-    public Point getPoint(){
-        return point;
-    }
 
     @Override
     public boolean isSpecified(Oval oval)  {
-        return point.equals(oval.getPointA());
+        return point.equals(oval.getPointA()) || point.equals(oval.getPointB());
     }
 
 }

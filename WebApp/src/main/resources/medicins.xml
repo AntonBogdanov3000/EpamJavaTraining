@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medicins    xmlns="http://www.training.by/medicins"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.training.by/medicins medicins.xsd">
+
+    <medicins name="Aspirine">
+        <name>Aspirine</name>
+        <pharm>Phizer</pharm>
+        <group>Antibiotic</group>
+        <analogs>Aspirine</analogs>
+        <versions>tablet</versions>
+        <certificate>
+            <number>23</number>
+            <date_of_issue>2010-05-20</date_of_issue>
+            <expiry_date>2015-05-20</expiry_date>
+            <organization>Belpharm</organization>
+        </certificate>
+        <package>
+            <package_type>blister</package_type>
+            <count>10</count>
+            <price>15</price>
+        </package>
+        <dosage>
+            <dose>5</dose>
+            <use>2 times in a day</use>
+        </dosage>
+    </medicins>
+    <medicins name="Coldrex">
+        <name>Coldrex</name>
+        <pharm>SmithKline</pharm>
+        <group>Analgesic</group>
+        <analogs>Theraflu</analogs>
+        <versions>powder</versions>
+        <certificate>
+            <number>34</number>
+            <date_of_issue>2006-06-09</date_of_issue>
+            <expiry_date>2016-06-09</expiry_date>
+            <organization>Belpharm</organization>
+        </certificate>
+        <package>
+            <package_type>syringe</package_type>
+            <count>12</count>
+            <price>8</price>
+        </package>
+        <dosage>
+            <dose>10</dose>
+            <use>if body temperature is high</use>
+        </dosage>
+    </medicins>
+    <medicins name="Theraflu">
+        <name>Theraflu</name>
+        <pharm>GSK US</pharm>
+        <group>Analgesic</group>
+        <analogs>Coldrex</analogs>
+        <versions>powder</versions>
+        <certificate>
+            <number>127</number>
+            <date_of_issue>2013-07-04</date_of_issue>
+            <expiry_date>2013-07-04</expiry_date>
+            <organization>Belpharm</organization>
+        </certificate>
+        <package>
+            <package_type>syringe</package_type>
+            <count>10</count>
+            <price>12</price>
+        </package>
+        <dosage>
+            <dose>10</dose>
+            <use>if body temperature is high</use>
+        </dosage>
+    </medicins>
+    <medicins name="Mig">
+        <name>Mig</name>
+        <pharm>Berlin-Chemie</pharm>
+        <group>Antiviral</group>
+        <analogs>Citramon</analogs>
+        <versions>tablet</versions>
+        <certificate>
+            <number>47</number>
+            <date_of_issue>2020-03-12</date_of_issue>
+            <expiry_date>2025-03-11</expiry_date>
+            <organization>Belpharm</organization>
+        </certificate>
+        <package>
+            <package_type>blister</package_type>
+            <count>10</count>
+            <price>7</price>
+        </package>
+        <dosage>
+            <dose>5</dose>
+            <use>one time in a day</use>
+        </dosage>
+    </medicins>
+    </medicins>

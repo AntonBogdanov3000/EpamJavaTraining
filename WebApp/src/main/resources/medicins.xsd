@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+        elementFormDefault="qualified"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.training.by/medicins"
+        xmlns:tns="http://www.training.by/medicins">
+    <element name="medicins">
+        <complexType>
+            <sequence>
+                <element name="medicins" type="tns:Medicins"
+                         minOccurs="1"
+                         maxOccurs="16" />
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="Medicins">
+        <sequence>
+            <element name="name" type="string" />
+            <element name="pharm" type="string" />
+            <element name="group" type="tns:Group"/>
+            <element name="analogs" type="string" />
+            <element name="versions" type="tns:Version" />
+            <element name="certificate" type="tns:Certificate" />
+            <element name="package" type="tns:Package" />
+            <element name="dosage" type="tns:Dosage" />
+        </sequence>
+        <attribute name="name" type="string" use="required" />
+        </complexType>
+    <simpleType name="Group" >
+        <restriction base="string">
+            <enumeration value="Antibiotic"/>
+            <enumeration value="Analgesic" />
+            <enumeration value="Antidepressant" />
+            <enumeration value="Stimulant" />
+            <enumeration value="Cardiovascular" />
+            <enumeration value="Antiviral" />
+        </restriction>
+    </simpleType>
+    <simpleType name="Version">
+        <restriction base="string">
+            <enumeration value="tablet" />
+            <enumeration value="capsule" />
+            <enumeration value="mixture" />
+            <enumeration value="powder" />
+        </restriction>
+    </simpleType>
+    <complexType name="Certificate">
+        <sequence>
+            <element name="number" type="long"/>
+            <element name="date_of_issue" type="date" />
+            <element name="expiry_date" type="date" />
+            <element name="organization" type="string" />
+        </sequence>
+    </complexType>
+    <complexType name="Package">
+        <sequence>
+            <element name="package_type">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="blister"/>
+                        <enumeration value="tube"/>
+                        <enumeration value="bottle"/>
+                        <enumeration value="ampoule"/>
+                        <enumeration value="syringe"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="count" type="int" />
+            <element name="price" type="double" />
+        </sequence>
+    </complexType>
+    <complexType name="Dosage">
+        <sequence>
+            <element name="dose" type="double" />
+            <element name="use" type="string" />
+        </sequence>
+    </complexType>
+</schema>

@@ -9,4 +9,5 @@ public interface UserDao extends BaseDao<User,Long>{
     void delete(Long id) throws DaoException;
     void create(User user) throws DaoException;
     void update(User user) throws DaoException;
+    List<User> findUserByLastName(String lastName) throws DaoException;
 }

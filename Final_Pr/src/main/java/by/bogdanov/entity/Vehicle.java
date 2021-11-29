@@ -3,33 +3,35 @@ package by.bogdanov.entity;
 public class Vehicle extends Entity {
 
     private long id;
-    private long userId;
+    private long ownerId;
+    private String plate;
     private String model;
-    private String vinNumber;
     private int year;
     private int mileage;
 
     public Vehicle(){}
-    public Vehicle(long id,long userId,String model,
-                   String vin, int year, int mileage ){
-        this.userId = userId;
+    public Vehicle(long id,long ownerId,String model,
+                   String plate, int year, int mileage ){
         this.id = id;
+        this.ownerId = ownerId;
         this.model = model;
-        this.vinNumber = vin;
+        this.plate = plate;
         this.year = year;
         this.mileage = mileage;
-    }
-    public void setUserId(long userId){
-        this.userId = userId;
-    }
-    public long getUserId(){
-        return userId;
     }
     public void setId(long id){
         this.id = id;
     }
-    public long getId(){
+
+    public long getId() {
         return id;
+    }
+
+    public void setOwnerId(long ownerId){
+        this.ownerId = ownerId;
+    }
+    public long getOwnerId(){
+        return ownerId;
     }
 
     public void setModel(String model){
@@ -40,12 +42,12 @@ public class Vehicle extends Entity {
         return model;
     }
 
-    public void setVinNumber(String vin){
-        this.vinNumber = vin;
+    public void setPlate(String plate){
+        this.plate = plate;
     }
 
-    public String getVinNumber(){
-        return vinNumber;
+    public String getPlate(){
+        return plate;
     }
 
     public void setYear(int year){
@@ -65,7 +67,11 @@ public class Vehicle extends Entity {
     }
 
     public String toString(){
-        return this.model + " " + this.year + " " + this.mileage;
+        return this.model + " " + this.year +
+                "\n" + "Mileage: "+ this.mileage +
+                "\n" + "Plate: " + this.plate +
+                "\n" + "Client: "+ this.ownerId + "\n"
+                  +"- - - - - - - - - - - - ";
     }
     public boolean equals(Object obj){
         if(obj == this){
@@ -78,13 +84,13 @@ public class Vehicle extends Entity {
         if(vehicle.id != this.id){
             return false;
         }
-        if(vehicle.userId != this.userId){
+        if(vehicle.ownerId != this.ownerId){
             return false;
         }
         if(vehicle.model != this.model){
             return false;
         }
-        if(vehicle.vinNumber != this.vinNumber){
+        if(vehicle.plate != this.plate){
             return false;
         }
         if(vehicle.year != this.year){
@@ -99,13 +105,11 @@ public class Vehicle extends Entity {
         final int number = 31;
         int result = 1;
         result = number * result + (int) id;
-        result = number * result + (int) userId;
+        result = number * result + (int) ownerId;
         result = number * result + model.hashCode();
-        result = number * result + vinNumber.hashCode();
+        result = number * result + plate.hashCode();
         result = number * result + year;
         result = number * result + mileage;
-
         return result;
     }
-
 }

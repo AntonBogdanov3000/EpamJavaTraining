@@ -1,5 +1,7 @@
 package by.bogdanov.entity;
 
+import java.util.List;
+
 public class User extends Entity {
 
     private long id;
@@ -7,21 +9,22 @@ public class User extends Entity {
     private String lastName;
     private String password;
     private String login;
-    private String email;
-    private Vehicle car;
-    private Order order;
+    private String telephone;
+    private int role;
+    private List<Vehicle> carList;
+    private List<Order> orderList;
 
     public User(){}
-    public User(long id, String name, String lastName, String password,String login,Vehicle car,
-                String email, Order order){
+    public User(long id, String name, String lastName, String password,String login,String telephone,int role){
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.password = password;
         this.login = login;
-        this.car = car;
-        this.email = email;
-        this.order = order;
+        this.telephone = telephone;
+        this.role = role;
+        //this.carList = carList;
+        //this.orderList = orderList;
     }
     public void setId(long id){
         this.id = id;
@@ -53,36 +56,41 @@ public class User extends Entity {
     public String getLogin(){
         return login;
     }
-    public Vehicle getVehicle(){
-        return car;
+
+    public void setTelephone(String telephone){
+        this.telephone = telephone;
     }
-    public void setEmail(String email){
-        this.email = email;
-    }
-    public String getEmail(){
-        return email;
+    public String getTelephone(){
+        return telephone;
     }
 
-    public void setCar(Vehicle car) {
-        this.car = car;
+    public void setRole(int role) {
+        this.role = role;
+    }
+    public int getRole(){
+        return role;
     }
 
-    public Vehicle getCar() {
-        return car;
+    public void setCarList(List<Vehicle> carList){
+        this.carList = carList;
+    }
+    public List<Vehicle> getCarList(){
+        return carList;
     }
 
-    public void setOrder(Order order){
-        this.order = order;
+    public void setOrderList(List<Order> orderList){
+        this.orderList = orderList;
     }
-    public Order getOrder(){
-        return order;
+    public List<Order> orderList(){
+        return orderList;
     }
 
     public String toString(){
-        return this.name +"\n"
-                + this.lastName+"\n"
-                + this.car+"\n"
-                + this.order;
+        return "Client id: " + this.id + "\n"
+                +this.name +" " + this.lastName + "\n" +
+                "Login: " + this.login + "  Pass: " + this.password + "\n"
+                +"Tel: " + this.telephone + "\n";
+
     }
     public boolean equals(Object obj){
         if(obj == this){
@@ -107,13 +115,17 @@ public class User extends Entity {
         if(user.login != this.login){
             return false;
         }
-        if(user.car != this.car){
+        if(user.telephone != this.telephone){
             return false;
         }
-        if(user.email != this.email){
+        if(user.role != this.role){
             return false;
         }
-        if(user.order != this.order){
+        if(user.carList != this.carList){
+            return false;
+        }
+
+        if(user.orderList != this.orderList){
             return false;
         }
         return true;
@@ -126,9 +138,9 @@ public class User extends Entity {
         result = number * result + lastName.hashCode();
         result = number * result + password.hashCode();
         result = number * result + login.hashCode();
-        result = number * result + car.hashCode();
-        result = number * result + email.hashCode();
-        result = number * result + order.hashCode();
+        result = number * result + carList.hashCode();
+        result = number * result + telephone.hashCode();
+        result = number * result + orderList.hashCode();
 
         return result;
     }

@@ -3,7 +3,7 @@ package by.bogdanov.dao.mysql;
 import by.bogdanov.dao.DaoException;
 import by.bogdanov.dao.VehicleDao;
 import by.bogdanov.entity.Vehicle;
-import by.bogdanov.dao.ConnectionCreator;
+import by.bogdanov.dao.connection.ConnectionCreator;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

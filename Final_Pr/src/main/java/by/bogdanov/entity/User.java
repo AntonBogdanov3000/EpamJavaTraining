@@ -23,8 +23,6 @@ public class User extends Entity {
         this.login = login;
         this.telephone = telephone;
         this.role = role;
-        //this.carList = carList;
-        //this.orderList = orderList;
     }
     public void setId(long id){
         this.id = id;

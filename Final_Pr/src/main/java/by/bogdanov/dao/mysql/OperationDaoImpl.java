@@ -1,17 +1,26 @@
 package by.bogdanov.dao.mysql;
 
-import by.bogdanov.dao.ConnectionCreator;
+import by.bogdanov.dao.connection.ConnectionCreator;
 import by.bogdanov.dao.DaoException;
 import by.bogdanov.dao.OperationDao;
 import by.bogdanov.entity.Operation;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class OperationDaoImpl implements OperationDao {
 
-    private final static String SQL_READ_OPERATION_ID = "SELECT name, price FROM operations WHERE id=?";
+    private Logger logger = LogManager.getLogger(OperationDaoImpl.class);
+
     private final static String SQL_SELECT_ALL_OPERATIONS = "SELECT * FROM operations";
+    private final static String SQL_READ_OPERATION_BY_ID = "SELECT operation_name, price FROM operations WHERE id=?";
+    private final static String SQL_DELETE_OPERATION_BY_ID = "DELETE FROM operations WHERE id=?";
+    private final static String SQL_CREATE_OPERATION = "INSERT INTO operations(operation_name, price, id) VALUES (?,?,?)";
+    private final static String SQL_UPDATE_OPERATION = "UPDATE operations SET operation_name=?, price=? WHERE id=?";
+    private final static String SQL_READ_OPERATION_BY_PRICE = "SELECT id, operation_name FROM operations WHERE price=?";
+    private final static String SQL_READ_OPERATION_BY_ORDER_ID = "SELECT operation_id FROM order_operation WHERE order_id=?";
 
     @Override
     public List<Operation> readAll() throws DaoException {
@@ -24,8 +33,10 @@ public class OperationDaoImpl implements OperationDao {
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_OPERATIONS);
             while (resultSet.next()){
               Operation operation = new Operation();
-              operation.setOperationName(resultSet.getString("name"));
+              operation.setId(resultSet.getInt("id"));
+              operation.setOperationName(resultSet.getString("operation_name"));
               operation.setOperationPrice(resultSet.getInt("price"));
+              operationList.add(operation);
             }
         } catch (SQLException e){
             throw new DaoException(e);
@@ -39,12 +50,13 @@ public class OperationDaoImpl implements OperationDao {
         PreparedStatement statement = null;
         try {
             connection = ConnectionCreator.getInstance().createConnection();
-            statement = connection.prepareStatement(SQL_READ_OPERATION_ID);
+            statement = connection.prepareStatement(SQL_READ_OPERATION_BY_ID);
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                operation.setOperationName(resultSet.getString("name"));
+                operation.setOperationName(resultSet.getString("operation_name"));
                 operation.setOperationPrice(resultSet.getInt("price"));
+                operation.setId(id);
             }
         }catch (SQLException e){
             throw new DaoException(e);
@@ -54,16 +66,84 @@ public class OperationDaoImpl implements OperationDao {
 
     @Override
     public void delete(Long id) throws DaoException {
-
+        try {
+            Connection connection = ConnectionCreator.getInstance().createConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_DELETE_OPERATION_BY_ID);
+            statement.setLong(1,id);
+            statement.executeUpdate();
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
     }
 
     @Override
     public void create(Operation operation) throws DaoException {
-
+        try{
+            Connection connection = ConnectionCreator.getInstance().createConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_CREATE_OPERATION);
+            statement.setString(1,operation.getOperationName());
+            statement.setInt(2,operation.getOperationPrice());
+            statement.setLong(3,operation.getId());
+            statement.executeUpdate();
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
     }
 
     @Override
     public void update(Operation operation) throws DaoException {
-
+        try{
+            Connection connection = ConnectionCreator.getInstance().createConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_OPERATION);
+            statement.setString(1,operation.getOperationName());
+            statement.setInt(2,operation.getOperationPrice());
+            statement.setLong(3,operation.getId());
+            statement.executeUpdate();
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
     }
-}
+
+    @Override
+    public Operation readByPrice(int price) throws DaoException {
+        Operation operation = new Operation();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionCreator.getInstance().createConnection();
+            statement = connection.prepareStatement(SQL_READ_OPERATION_BY_PRICE);
+            statement.setInt(1,price);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                operation.setId(resultSet.getLong("id"));
+                operation.setOperationName(resultSet.getString("operation_name"));
+                operation.setOperationPrice(price);
+            }
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
+        return operation;
+    }
+
+    @Override
+    public List<Operation> readByOrderId(Long id) throws DaoException {
+        List<Operation> operationList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionCreator.getInstance().createConnection();
+            statement = connection.prepareStatement(SQL_READ_OPERATION_BY_ORDER_ID);
+            statement.setLong(1,id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Operation operation = readById(resultSet.getLong("operation_id"));
+                operationList.add(operation);
+            }
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
+        return operationList;
+    }
+    }
+
+

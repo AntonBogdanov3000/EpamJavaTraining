@@ -1,6 +1,6 @@
 package by.bogdanov.dao.mysql;
 
-import by.bogdanov.dao.ConnectionCreator;
+import by.bogdanov.dao.connection.ConnectionCreator;
 import by.bogdanov.dao.DaoException;
 import by.bogdanov.dao.UserDao;
 import by.bogdanov.entity.User;

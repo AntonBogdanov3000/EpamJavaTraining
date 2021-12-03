@@ -2,8 +2,7 @@ package by.bogdanov.dao;
 
 public enum Role {
     ADMIN,
-    USER,
-    GUEST;
+    USER;
 
     public String getName(){
         return name().toLowerCase();

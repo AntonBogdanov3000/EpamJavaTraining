@@ -9,4 +9,5 @@ public interface ManagerDao extends BaseDao<Manager,Long>{
     void delete(Long id) throws DaoException;
     void create(Manager manager) throws DaoException;
     void update(Manager manager) throws DaoException;
+    Manager readByLastName(String lastname) throws DaoException;
 }

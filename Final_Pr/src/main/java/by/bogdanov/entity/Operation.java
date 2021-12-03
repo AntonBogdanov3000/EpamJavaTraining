@@ -2,13 +2,21 @@ package by.bogdanov.entity;
 
 public class Operation extends Entity{
 
+    private long id;
     private String operationName;
     private int operationPrice;
 
     public Operation(){}
-    public Operation(String name, int price){
+    public Operation(long id, String name, int price){
+        this.id = id;
         this.operationName = name;
         this.operationPrice = price;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+    public long getId() {
+        return id;
     }
     public void setOperationName(String operationName) {
         this.operationName = operationName;
@@ -23,8 +31,8 @@ public class Operation extends Entity{
         return operationPrice;
     }
     public String toString(){
-        return "Operation "+this.operationName+"\n"
-                +"Price " +this.operationPrice;
+        return "Operation id: " + this.id + " - " + this.operationName+"\n"
+                +"Price: " +this.operationPrice;
     }
     public boolean equals(Object obj){
         if(obj == this){
@@ -34,6 +42,9 @@ public class Operation extends Entity{
             return false;
         }
         Operation operation = (Operation) obj;
+        if(operation.id != this.id){
+            return false;
+        }
         if(operation.operationPrice != this.operationPrice){
             return false;
         }

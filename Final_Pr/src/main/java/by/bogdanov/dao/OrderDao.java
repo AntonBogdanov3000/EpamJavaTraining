@@ -9,4 +9,5 @@ public interface OrderDao extends BaseDao<Order,Long>{
     void delete(Long id) throws DaoException;
     void create(Order order) throws DaoException;
     void update(Order order) throws DaoException;
+    List<Order> readByUserId(Long id) throws DaoException;
 }

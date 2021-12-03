@@ -1,6 +1,7 @@
 package by.bogdanov.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order extends Entity {
 
@@ -8,15 +9,14 @@ public class Order extends Entity {
     private int price;
     private Date date;
     private long userId;
-    private Operation operation;
+    private List<Operation> operationList;
 
     public Order(){}
-    public Order(long id, int price, Date date, long userId, Operation operation){
+    public Order(long id, int price, Date date, long userId){
         this.id = id;
         this.price = price;
         this.date = date;
         this.userId = userId;
-        this.operation = operation;
     }
 
     public void setId(long id) {
@@ -43,15 +43,11 @@ public class Order extends Entity {
     public long getUserId() {
         return userId;
     }
-    public void setOperation(Operation operation){
-        this.operation = operation;
-    }
-    public Operation getOperation() {
-        return operation;
-    }
+
     public String toString(){
-        return "Order " + this.price +" "+ this.date+"\n"
-                + "* "+ this.operation;
+        return "Client id: " + this.userId + "\n" +
+                "Order id: " + this.id + "; Price: " + this.price + "\n" +
+                this.date+"\n";
     }
     public boolean equals(Object obj){
         if(obj == this){
@@ -73,9 +69,7 @@ public class Order extends Entity {
         if(order.userId != this.userId){
             return false;
         }
-        if(order.operation != this.operation){
-            return false;
-        }
+
         return true;
     }
     public int hashCode(){
@@ -85,7 +79,6 @@ public class Order extends Entity {
         result = number * result + price;
         result = number * result + date.hashCode();
         result = number * result + (int) userId;
-        result = number * result + operation.hashCode();
         return result;
     }
 }

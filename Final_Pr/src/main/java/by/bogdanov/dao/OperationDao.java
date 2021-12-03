@@ -9,4 +9,6 @@ public interface OperationDao extends BaseDao<Operation,Long>{
     void delete(Long id) throws DaoException;
     void create(Operation operation) throws DaoException;
     void update(Operation operation) throws DaoException;
+    Operation readByPrice(int price) throws DaoException;
+    List<Operation> readByOrderId(Long id) throws DaoException;
 }

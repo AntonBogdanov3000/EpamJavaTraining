@@ -3,7 +3,7 @@ package by.bogdanov.dao;
 import by.bogdanov.entity.Manager;
 import java.util.List;
 
-public interface ManagerDao extends BaseDao<Manager,Long>{
+public interface ManagerDao extends BaseDao<Manager>{
     List<Manager> readAll() throws DaoException;
     Manager readById(Long id) throws DaoException;
     void delete(Long id) throws DaoException;

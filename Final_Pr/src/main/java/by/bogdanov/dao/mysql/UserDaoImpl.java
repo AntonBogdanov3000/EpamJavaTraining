@@ -1,6 +1,5 @@
 package by.bogdanov.dao.mysql;
 
-import by.bogdanov.dao.connection.ConnectionCreator;
 import by.bogdanov.dao.DaoException;
 import by.bogdanov.dao.UserDao;
 import by.bogdanov.entity.User;
@@ -10,9 +9,17 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+
 public class UserDaoImpl implements UserDao {
 
     private Logger logger = LogManager.getLogger(UserDaoImpl.class);
+
+    private Connection connection;
+
+    public UserDaoImpl(Connection connection){
+        this.connection = connection;
+    }
+    public UserDaoImpl(){}
 
     private static final String SQL_INSERT_USER = "INSERT INTO users(id,name,lastname,password,login,telephone,role) VALUES(?,?,?,?,?,?,?)";
     private static final String SQL_SELECT_ALL_USERS = "SELECT * FROM users";
@@ -24,10 +31,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> readAll() throws DaoException {
         List<User> userList = new ArrayList<>();
-        Connection connection = null;
         Statement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS);
             while (resultSet.next()){
@@ -49,10 +54,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User readById(Long id) throws DaoException {
         User user = new User();
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.prepareStatement(SQL_SELECT_USER_ID);
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
@@ -74,7 +77,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(Long id) throws DaoException {
     try {
-        Connection connection = ConnectionCreator.getInstance().createConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID);
         statement.setLong(1,id);
         statement.executeUpdate();
@@ -86,7 +88,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void create(User user) throws DaoException {
      try{
-         Connection connection = ConnectionCreator.getInstance().createConnection();
          PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER);
          statement.setLong(1,user.getId());
          statement.setString(2,user.getName());
@@ -104,7 +105,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void update(User user) throws DaoException {
         try{
-            Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER);
             statement.setString(1,user.getName());
             statement.setString(2,user.getLastName());
@@ -122,10 +122,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findUserByLastName(String lastName) throws DaoException {
         List<User> userList = new ArrayList<>();
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.prepareStatement(SQL_SELECT_USER_BY_LASTNAME);
             statement.setString(1,lastName);
             ResultSet resultSet = statement.executeQuery();

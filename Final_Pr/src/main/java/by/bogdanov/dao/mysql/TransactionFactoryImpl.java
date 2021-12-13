@@ -10,10 +10,12 @@ import java.sql.SQLException;
 public class TransactionFactoryImpl implements TransactionFactory {
 
     private Connection connection;
+
+
     public TransactionFactoryImpl() throws DaoException {
         connection = ConnectionPool.getInstance().getConnection();
         try {
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(true);
         }catch (SQLException e){
             throw new DaoException(e);
         }

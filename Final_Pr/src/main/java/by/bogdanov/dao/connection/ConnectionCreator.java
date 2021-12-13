@@ -1,4 +1,4 @@
-package by.bogdanov.dao;
+package by.bogdanov.dao.connection;
 
 import java.io.FileReader;
 import java.io.IOException;

@@ -3,7 +3,7 @@ package by.bogdanov.dao;
 import by.bogdanov.entity.Clearance;
 import java.util.List;
 
-public interface ClearanceDao extends BaseDao<Clearance,Long>{
+public interface ClearanceDao extends BaseDao<Clearance>{
     List<Clearance> readAll() throws DaoException;
     Clearance readById(Long id) throws DaoException;
     void delete(Long id) throws DaoException;

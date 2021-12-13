@@ -3,7 +3,7 @@ package by.bogdanov.dao;
 import by.bogdanov.entity.User;
 import java.util.List;
 
-public interface UserDao extends BaseDao<User,Long>{
+public interface UserDao extends BaseDao<User>{
     List<User> readAll() throws DaoException;
     User readById(Long id) throws DaoException;
     void delete(Long id) throws DaoException;

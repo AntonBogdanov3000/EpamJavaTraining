@@ -13,7 +13,13 @@ import org.apache.log4j.LogManager;
 public class VehicleDaoImpl implements VehicleDao {
 
     private Logger logger = LogManager.getLogger(VehicleDaoImpl.class);
+    private Connection connection;
 
+    public VehicleDaoImpl(){}
+
+    public VehicleDaoImpl(Connection connection){
+        this.connection = connection;
+    }
 
     private static final String SQL_INSERT_VEHICLE = "INSERT INTO vehicle (owner_id, model, plate, mileage,year) VALUES (?,?,?,?,?)";
     private static final String SQL_READ_VEHICLE_ID = "SELECT model, plate, owner_id, year, mileage FROM vehicle WHERE id=?";
@@ -25,10 +31,10 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public List<Vehicle> readAll() throws DaoException {
         List<Vehicle> vehiclesList = new ArrayList<>();
-        Connection connection = null;
+        //Connection connection = null;
         Statement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
+            //connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_VEHICLES);
             while (resultSet.next()){

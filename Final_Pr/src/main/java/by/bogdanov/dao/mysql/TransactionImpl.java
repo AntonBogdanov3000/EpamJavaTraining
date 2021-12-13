@@ -1,19 +1,24 @@
 package by.bogdanov.dao.mysql;
 
-import by.bogdanov.dao.BaseDao;
-import by.bogdanov.dao.DaoException;
-import by.bogdanov.dao.Transaction;
+import by.bogdanov.dao.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TransactionImpl implements Transaction {
 
     private Connection connection;
+
     public TransactionImpl(Connection connection){
         this.connection = connection;
     }
+    private TransactionImpl(){}
+
     @Override
-    public <Type extends BaseDao<?, ?>> Type createDao(Class<Type> key) throws DaoException {
+    public <T extends BaseDao<?>> T createDao(DaoEnum key) throws DaoException {
+        switch (key) {
+            case USER_DAO: return (T) new UserDaoImpl(connection);
+            case VEHICLE_DAO: return (T) new VehicleDaoImpl(connection);
+        }
         return null;
     }
 

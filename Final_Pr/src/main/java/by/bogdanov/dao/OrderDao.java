@@ -3,7 +3,7 @@ package by.bogdanov.dao;
 import by.bogdanov.entity.Order;
 import java.util.List;
 
-public interface OrderDao extends BaseDao<Order,Long>{
+public interface OrderDao extends BaseDao<Order>{
     List<Order> readAll() throws DaoException;
     Order readById(Long id) throws DaoException;
     void delete(Long id) throws DaoException;

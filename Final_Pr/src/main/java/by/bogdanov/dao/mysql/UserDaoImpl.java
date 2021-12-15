@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 
 public class UserDaoImpl implements UserDao {
 
-    private Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
     private Connection connection;
 
@@ -21,7 +20,7 @@ public class UserDaoImpl implements UserDao {
     }
     public UserDaoImpl(){}
 
-    private static final String SQL_INSERT_USER = "INSERT INTO users(id,name,lastname,password,login,telephone,role) VALUES(?,?,?,?,?,?,?)";
+    private static final String SQL_INSERT_USER = "INSERT INTO users(name,lastname,password,login,telephone,role) VALUES(?,?,?,?,?,?)";
     private static final String SQL_SELECT_ALL_USERS = "SELECT * FROM users";
     private static final String SQL_SELECT_USER_ID = "SELECT name, lastname, login, role, telephone, password FROM users WHERE id=?";
     private static final String SQL_SELECT_USER_BY_LASTNAME = "SELECT id, name, password, login, telephone, role  FROM users WHERE lastname=?";
@@ -89,13 +88,13 @@ public class UserDaoImpl implements UserDao {
     public void create(User user) throws DaoException {
      try{
          PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER);
-         statement.setLong(1,user.getId());
-         statement.setString(2,user.getName());
-         statement.setString(3,user.getLastName());
-         statement.setString(4,user.getPassword());
-         statement.setString(5,user.getLogin());
-         statement.setString(6,user.getTelephone());
-         statement.setInt(7,user.getRole());
+         //statement.setLong(1,user.getId());
+         statement.setString(1,user.getName());
+         statement.setString(2,user.getLastName());
+         statement.setString(3,user.getPassword());
+         statement.setString(4,user.getLogin());
+         statement.setString(5,user.getTelephone());
+         statement.setInt(6,user.getRole());
          statement.executeUpdate();
      }catch (SQLException e){
          throw new DaoException(e);

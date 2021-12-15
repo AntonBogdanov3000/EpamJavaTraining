@@ -50,8 +50,8 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     public static void main(String[] args) throws ServiceException,DaoException {
         UserServiceImpl service = new UserServiceImpl();
-        User user1 = new User(5,"Chuck","Norris","Ranger",
-                "CHAKA","+375339874563",1);
+        User user1 = new User("Paul","Walker","Brian",
+                "cop","+375339874563",1);
         service.createUser(user1);
 
 

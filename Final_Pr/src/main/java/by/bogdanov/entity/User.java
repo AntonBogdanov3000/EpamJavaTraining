@@ -15,8 +15,8 @@ public class User extends Entity {
     private List<Order> orderList;
 
     public User(){}
-    public User(long id, String name, String lastName, String password,String login,String telephone,int role){
-        this.id = id;
+    public User( String name, String lastName, String password,String login,String telephone,int role){
+        //this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.password = password;

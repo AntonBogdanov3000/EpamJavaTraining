@@ -9,12 +9,11 @@ public class CommandProvider {
 
     private final Map<CommandName,Command> listCommand = new HashMap<>();
 
-    CommandProvider(){
+    public CommandProvider(){
         listCommand.put(CommandName.REGISTRATION, new RegistrationCommandImpl());
     }
     public Command getCommand(String text){
         Command command = listCommand.get(CommandName.valueOf(text));
         return command;
     }
-
 }

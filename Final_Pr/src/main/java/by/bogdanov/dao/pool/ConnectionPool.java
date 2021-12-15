@@ -1,44 +1,35 @@
 package by.bogdanov.dao.pool;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.LinkedBlockingQueue;
 import by.bogdanov.dao.DaoException;
-import org.apache.log4j.Logger;
 
 
 final public class ConnectionPool {
-	private static Logger logger = Logger.getLogger(ConnectionPool.class);
-	private static final Properties properties = new Properties();
-	static {
-		try{
-			properties.load(new FileReader("src/main/resources/database.properties"));
-			String driverName = (String) properties.get("db.driver");
-			Class.forName(driverName);
-		} catch (ClassNotFoundException | IOException e){
-			e.printStackTrace();
-		}
-	}
-	private  String url = (String) properties.get("db.url");
-	private  String user = (String) properties.get("user");
-	private  String password = (String) properties.get("password");
-	private int maxSize = Integer.parseInt((String) properties.get("poolsize"));
-	private int checkConnectionTimeout;
+
+
+	private  String url = "jdbc:mysql://localhost:3306/carshop";
+	private  String user = "root";
+	private  String password = "admin";
+	private  String driverClass = "com.mysql.jdbc.Driver";
+	private int maxSize = 32;
+	private int checkConnectionTimeout = 30;
 
 
 	private BlockingQueue<PooledConnection> freeConnections = new LinkedBlockingQueue<>();
 	private Set<PooledConnection> usedConnections = new ConcurrentSkipListSet<>();
 
-	private ConnectionPool() {}
+	private ConnectionPool(){}
+
+
 
 	public synchronized Connection getConnection() throws DaoException {
+
 		PooledConnection connection = null;
 		while(connection == null) {
 			try {
@@ -56,7 +47,7 @@ final public class ConnectionPool {
 					//logger.error("The limit of number of database connections is exceeded");
 					throw new DaoException();
 				}
-			} catch(InterruptedException | SQLException e) {
+			} catch(InterruptedException| ClassNotFoundException | SQLException e) {
 				//logger.error("It is impossible to connect to a database", e);
 				throw new DaoException(e);
 			}
@@ -107,7 +98,8 @@ final public class ConnectionPool {
 		return instance;
 	}
 
-	private PooledConnection createConnection() throws SQLException {
+	private PooledConnection createConnection() throws SQLException ,ClassNotFoundException{
+
 		return new PooledConnection(DriverManager.getConnection(url,user,password));
 	}
 

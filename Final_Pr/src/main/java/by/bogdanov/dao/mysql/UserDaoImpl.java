@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_INSERT_USER = "INSERT INTO users(name,lastname,password,login,telephone,role) VALUES(?,?,?,?,?,?)";
     private static final String SQL_SELECT_ALL_USERS = "SELECT * FROM users";
     private static final String SQL_SELECT_USER_ID = "SELECT name, lastname, login, role, telephone, password FROM users WHERE id=?";
-    private static final String SQL_SELECT_USER_BY_LASTNAME = "SELECT id, name, password, login, telephone, role  FROM users WHERE lastname=?";
+    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT id, name, lastname, password, telephone, role  FROM users WHERE login=?";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM users WHERE id=?";
     private static final String SQL_UPDATE_USER = "UPDATE users SET name=?,lastname=?,password=?,login=?,telephone=?,role=? WHERE id=?";
 
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User readById(Long id) throws DaoException {
+    public User readById(int id) throws DaoException {
         User user = new User();
         PreparedStatement statement = null;
         try {
@@ -74,7 +74,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(int id) throws DaoException {
     try {
         PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID);
         statement.setLong(1,id);
@@ -88,7 +88,6 @@ public class UserDaoImpl implements UserDao {
     public void create(User user) throws DaoException {
      try{
          PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER);
-         //statement.setLong(1,user.getId());
          statement.setString(1,user.getName());
          statement.setString(2,user.getLastName());
          statement.setString(3,user.getPassword());
@@ -119,27 +118,25 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findUserByLastName(String lastName) throws DaoException {
-        List<User> userList = new ArrayList<>();
+    public User findUserByLogin(String login) throws DaoException {
+        User user = new User();
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(SQL_SELECT_USER_BY_LASTNAME);
-            statement.setString(1,lastName);
+            statement = connection.prepareStatement(SQL_SELECT_USER_BY_LOGIN);
+            statement.setString(1,login);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                User user = new User();
-                user.setId(resultSet.getLong("id"));
-                user.setTelephone(resultSet.getString("telephone"));
+                user.setId(resultSet.getInt("id"));
                 user.setName(resultSet.getString("name"));
+                user.setLastName(resultSet.getString("lastname"));
                 user.setPassword(resultSet.getString("password"));
-                user.setLogin(resultSet.getString("login"));
+                user.setTelephone(resultSet.getString("telephone"));
                 user.setRole(resultSet.getInt("role"));
-                user.setLastName(lastName);
-                userList.add(user);
+                user.setLogin(login);
             }
         } catch (SQLException e){
             throw new DaoException(e);
         }
-        return userList;
+        return user;
     }
 }

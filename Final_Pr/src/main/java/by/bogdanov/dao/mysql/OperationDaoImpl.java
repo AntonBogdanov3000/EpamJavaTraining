@@ -1,6 +1,5 @@
 package by.bogdanov.dao.mysql;
 
-import by.bogdanov.dao.connection.ConnectionCreator;
 import by.bogdanov.dao.DaoException;
 import by.bogdanov.dao.OperationDao;
 import by.bogdanov.entity.Operation;
@@ -12,7 +11,11 @@ import org.apache.log4j.Logger;
 
 public class OperationDaoImpl implements OperationDao {
 
-    private Logger logger = LogManager.getLogger(OperationDaoImpl.class);
+    private Connection connection;
+    public OperationDaoImpl(Connection connection){
+        this.connection = connection;
+    }
+    public OperationDaoImpl(){}
 
     private final static String SQL_SELECT_ALL_OPERATIONS = "SELECT * FROM operations";
     private final static String SQL_READ_OPERATION_BY_ID = "SELECT operation_name, price FROM operations WHERE id=?";
@@ -25,10 +28,8 @@ public class OperationDaoImpl implements OperationDao {
     @Override
     public List<Operation> readAll() throws DaoException {
         List<Operation> operationList = new ArrayList<>();
-        Connection connection = null;
         Statement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_OPERATIONS);
             while (resultSet.next()){
@@ -44,12 +45,10 @@ public class OperationDaoImpl implements OperationDao {
         return operationList;
     }
     @Override
-    public Operation readById(Long id) throws DaoException {
+    public Operation readById(int id) throws DaoException {
         Operation operation = new Operation();
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.prepareStatement(SQL_READ_OPERATION_BY_ID);
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
@@ -65,9 +64,8 @@ public class OperationDaoImpl implements OperationDao {
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(int id) throws DaoException {
         try {
-            Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_OPERATION_BY_ID);
             statement.setLong(1,id);
             statement.executeUpdate();
@@ -79,7 +77,6 @@ public class OperationDaoImpl implements OperationDao {
     @Override
     public void create(Operation operation) throws DaoException {
         try{
-            Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_CREATE_OPERATION);
             statement.setString(1,operation.getOperationName());
             statement.setInt(2,operation.getOperationPrice());
@@ -93,7 +90,6 @@ public class OperationDaoImpl implements OperationDao {
     @Override
     public void update(Operation operation) throws DaoException {
         try{
-            Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_OPERATION);
             statement.setString(1,operation.getOperationName());
             statement.setInt(2,operation.getOperationPrice());
@@ -107,15 +103,13 @@ public class OperationDaoImpl implements OperationDao {
     @Override
     public Operation readByPrice(int price) throws DaoException {
         Operation operation = new Operation();
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.prepareStatement(SQL_READ_OPERATION_BY_PRICE);
             statement.setInt(1,price);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                operation.setId(resultSet.getLong("id"));
+                operation.setId(resultSet.getInt("id"));
                 operation.setOperationName(resultSet.getString("operation_name"));
                 operation.setOperationPrice(price);
             }
@@ -128,15 +122,13 @@ public class OperationDaoImpl implements OperationDao {
     @Override
     public List<Operation> readByOrderId(Long id) throws DaoException {
         List<Operation> operationList = new ArrayList<>();
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.prepareStatement(SQL_READ_OPERATION_BY_ORDER_ID);
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                Operation operation = readById(resultSet.getLong("operation_id"));
+                Operation operation = readById(resultSet.getInt("operation_id"));
                 operationList.add(operation);
             }
         }catch (SQLException e){

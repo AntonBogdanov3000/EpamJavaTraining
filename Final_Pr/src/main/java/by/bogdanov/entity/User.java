@@ -4,7 +4,7 @@ import java.util.List;
 
 public class User extends Entity {
 
-    private long id;
+    private int id;
     private String name;
     private String lastName;
     private String password;
@@ -16,7 +16,6 @@ public class User extends Entity {
 
     public User(){}
     public User( String name, String lastName, String password,String login,String telephone,int role){
-        //this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.password = password;
@@ -24,7 +23,7 @@ public class User extends Entity {
         this.telephone = telephone;
         this.role = role;
     }
-    public void setId(long id){
+    public void setId(int id){
         this.id = id;
     }
     public long getId(){

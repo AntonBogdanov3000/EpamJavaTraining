@@ -18,6 +18,9 @@ public class TransactionImpl implements Transaction {
         switch (key) {
             case USER_DAO: return (T) new UserDaoImpl(connection);
             case VEHICLE_DAO: return (T) new VehicleDaoImpl(connection);
+            case ORDER_DAO: return (T) new OrderDaoImpl(connection);
+            case OPERATION_DAO: return (T) new OperationDaoImpl(connection);
+
         }
         return null;
     }

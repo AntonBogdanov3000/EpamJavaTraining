@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 public class ManagerDaoImpl implements ManagerDao {
 
-    private Logger logger = LogManager.getLogger(ManagerDaoImpl.class);
+
 
     private static final String SQL_SELECT_ALL_MANAGER = "SELECT * FROM manager";
     private static final String SQL_SELECT_MANAGER_BY_ID = "SELECT name, lastname FROM manager WHERE id=?";
@@ -44,7 +44,7 @@ public class ManagerDaoImpl implements ManagerDao {
     }
 
     @Override
-    public Manager readById(Long id) throws DaoException {
+    public Manager readById(int id) throws DaoException {
         Manager manager = new Manager();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -65,7 +65,7 @@ public class ManagerDaoImpl implements ManagerDao {
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(int id) throws DaoException {
         try {
             Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_MANAGER_BY_ID);

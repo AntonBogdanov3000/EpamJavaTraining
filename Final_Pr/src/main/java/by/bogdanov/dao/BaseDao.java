@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface BaseDao <T extends Entity>{
     List<T> readAll() throws DaoException;
-    T readById(Long id) throws DaoException;
-    void delete(Long id) throws DaoException;
+    T readById(int id) throws DaoException;
+    void delete(int id) throws DaoException;
     void create(T t) throws DaoException;
     void update(T t) throws DaoException;
 }

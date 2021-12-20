@@ -1,0 +1,14 @@
+package by.bogdanov.controller.command.impl;
+
+import by.bogdanov.controller.command.Command;
+import javax.servlet.http.HttpServletRequest;
+
+public class LogoutCommandImpl implements Command {
+
+    @Override
+    public String execute(HttpServletRequest request) {
+        String page = request.getParameter("path");
+        request.getSession().invalidate();
+        return page;
+    }
+}

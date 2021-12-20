@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 
 public class ClearanceDaoImpl implements ClearanceDao {
 
-    Logger logger = LogManager.getLogger(ClearanceDaoImpl.class);
 
     private static final String SQL_SELECT_ALL_CLEARANCE = "SELECT * FROM clearance";
     private static final String SQL_READ_CLEARANCE_BY_ID = "SELECT name, start_date, end_date FROM clearance WHERE id=?";
@@ -45,7 +44,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
     }
 
     @Override
-    public Clearance readById(Long id) throws DaoException {
+    public Clearance readById(int id) throws DaoException {
         Clearance clearance = new Clearance();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -67,7 +66,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(int id) throws DaoException {
         try {
             Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLEARANCE_BY_ID);

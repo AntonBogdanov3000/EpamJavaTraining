@@ -2,7 +2,11 @@ package by.bogdanov.service.impl;
 
 import by.bogdanov.dao.*;
 import by.bogdanov.dao.mysql.TransactionFactoryImpl;
+import by.bogdanov.dao.mysql.UserDaoImpl;
+import by.bogdanov.entity.Operation;
+import by.bogdanov.entity.Order;
 import by.bogdanov.entity.User;
+import by.bogdanov.entity.Vehicle;
 import by.bogdanov.service.ServiceException;
 import by.bogdanov.service.UserService;
 import java.util.ArrayList;
@@ -28,10 +32,24 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         try{
             DaoFactory daoFactory = DaoFactory.getInstance();
             UserDao userDao = daoFactory.getUserDao();
-            userDao.delete(user.getId());
+            userDao.delete((int) user.getId());
         }catch (DaoException e){
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public User readUserById(int id) throws ServiceException {
+        User user;
+        try {
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            UserDao userDao = transaction.createDao(DaoEnum.USER_DAO);
+            user = userDao.readById(id);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+        return user;
     }
 
     @Override
@@ -48,14 +66,26 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         return userList;
     }
 
+    @Override
+    public User readUserByLogin(String login) throws ServiceException {
+        User user;
+        try {
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            UserDao userDao = transaction.createDao(DaoEnum.USER_DAO);
+            user = userDao.findUserByLogin(login);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+        return user;
+    }
+
     public static void main(String[] args) throws ServiceException,DaoException {
         UserServiceImpl service = new UserServiceImpl();
-        User user1 = new User("Paul","Walker","Brian",
-                "cop","+375339874563",1);
-        service.createUser(user1);
-
-
-
+        OperationServiceImpl operationService = new OperationServiceImpl();
+        for(Operation operation : operationService.readAllOperations()){
+            System.out.println(operation);
+        }
     }
 
 

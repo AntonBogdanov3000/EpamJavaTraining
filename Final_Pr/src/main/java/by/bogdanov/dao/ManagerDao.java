@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface ManagerDao extends BaseDao<Manager>{
     List<Manager> readAll() throws DaoException;
-    Manager readById(Long id) throws DaoException;
-    void delete(Long id) throws DaoException;
+    Manager readById(int id) throws DaoException;
+    void delete(int id) throws DaoException;
     void create(Manager manager) throws DaoException;
     void update(Manager manager) throws DaoException;
     Manager readByLastName(String lastname) throws DaoException;

@@ -5,21 +5,21 @@ import java.util.List;
 
 public class Order extends Entity {
 
-    private long id;
+    private int id;
     private int price;
     private Date date;
-    private long userId;
+    private int userId;
     private List<Operation> operationList;
 
     public Order(){}
-    public Order(long id, int price, Date date, long userId){
+    public Order(int id, int price, Date date, int userId){
         this.id = id;
         this.price = price;
         this.date = date;
         this.userId = userId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
     public long getId() {
@@ -37,17 +37,21 @@ public class Order extends Entity {
     public Date getDate() {
         return date;
     }
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
-    public long getUserId() {
+    public int getUserId() {
         return userId;
+    }
+
+    public void setOperationList(List<Operation> operationList) {
+        this.operationList = operationList;
     }
 
     public String toString(){
         return "Client id: " + this.userId + "\n" +
                 "Order id: " + this.id + "; Price: " + this.price + "\n" +
-                this.date+"\n";
+                this.date+"\n" + this.operationList;
     }
     public boolean equals(Object obj){
         if(obj == this){

@@ -2,32 +2,28 @@ package by.bogdanov.entity;
 
 public class Vehicle extends Entity {
 
-    private long id;
-    private long ownerId;
+    private int id;
+    private int ownerId;
     private String plate;
     private String model;
     private int year;
     private int mileage;
 
     public Vehicle(){}
-    public Vehicle(long id,long ownerId,String model,
+    public Vehicle(int ownerId,String model,
                    String plate, int year, int mileage ){
-        this.id = id;
         this.ownerId = ownerId;
         this.model = model;
         this.plate = plate;
         this.year = year;
         this.mileage = mileage;
     }
-    public void setId(long id){
-        this.id = id;
-    }
 
     public long getId() {
         return id;
     }
 
-    public void setOwnerId(long ownerId){
+    public void setOwnerId(int ownerId){
         this.ownerId = ownerId;
     }
     public long getOwnerId(){
@@ -104,8 +100,8 @@ public class Vehicle extends Entity {
     public int hashCode(){
         final int number = 31;
         int result = 1;
-        result = number * result + (int) id;
-        result = number * result + (int) ownerId;
+        result = number * result + id;
+        result = number * result + ownerId;
         result = number * result + model.hashCode();
         result = number * result + plate.hashCode();
         result = number * result + year;

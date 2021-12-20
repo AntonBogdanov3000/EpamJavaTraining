@@ -2,17 +2,17 @@ package by.bogdanov.entity;
 
 public class Operation extends Entity{
 
-    private long id;
+    private int id;
     private String operationName;
     private int operationPrice;
 
     public Operation(){}
-    public Operation(long id, String name, int price){
+    public Operation(int id, String name, int price){
         this.id = id;
         this.operationName = name;
         this.operationPrice = price;
     }
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
     public long getId() {

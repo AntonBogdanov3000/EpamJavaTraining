@@ -10,7 +10,7 @@ public class Vehicle extends Entity {
     private int mileage;
 
     public Vehicle(){}
-    public Vehicle(int ownerId,String model,
+    public Vehicle(int id, int ownerId, String model,
                    String plate, int year, int mileage ){
         this.ownerId = ownerId;
         this.model = model;
@@ -19,7 +19,11 @@ public class Vehicle extends Entity {
         this.mileage = mileage;
     }
 
-    public long getId() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
     }
 

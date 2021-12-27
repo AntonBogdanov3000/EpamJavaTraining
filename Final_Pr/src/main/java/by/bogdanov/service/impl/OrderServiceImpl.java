@@ -13,16 +13,17 @@ import java.util.List;
 public class OrderServiceImpl extends ServiceImpl implements OrderService {
     @Override
     public List<Order> readOrdersByUserId(int id) throws ServiceException {
-        List<Order> orderList = new ArrayList<>();
+        List<Order> orderList;
         List<Order> result = new ArrayList<>();
-        List<Operation> operationList = new ArrayList<>();
-        User user = new User();
+        List<Operation> operationList;
+        User user;
         try {
             TransactionFactory factory = new TransactionFactoryImpl();
             transaction = factory.createTransaction();
 
             UserDao userDao = transaction.createDao(DaoEnum.USER_DAO);
             OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
+            VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
             OperationDao operationDao = transaction.createDao(DaoEnum.OPERATION_DAO);
 
             user = userDao.readById(id);
@@ -31,6 +32,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
                 if(order.getUserId() == user.getId()){
                     operationList = operationDao.readByOrderId(order.getId());
                     order.setOperationList(operationList);
+                    order.setVehicle(vehicleDao.readById(order.getVehicleId()));
                     result.add(order);
                 }
             }
@@ -38,5 +40,68 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
         return result;
+    }
+
+    @Override
+    public void createOrder(Order order) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
+            orderDao.create(order);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateOrder(Order order) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
+            orderDao.update(order);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Order> readAllOrders() throws ServiceException {
+        List<Order> orderList;
+        List<Operation> operationList;
+        try {
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
+            VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
+            OperationDao operationDao = transaction.createDao(DaoEnum.OPERATION_DAO);
+
+            orderList = orderDao.readAll();
+
+            for (Order order : orderList){
+                operationList = operationDao.readByOrderId(order.getId());
+                order.setVehicle(vehicleDao.readById(order.getVehicleId()));
+                order.setOperationList(operationList);
+            }
+
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+        return orderList;
+    }
+
+    @Override
+    public Order readOrderById(int id) throws ServiceException {
+        Order order;
+        try {
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
+            order = orderDao.readById(id);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+        return order;
     }
 }

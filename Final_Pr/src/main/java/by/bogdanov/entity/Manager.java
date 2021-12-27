@@ -4,20 +4,20 @@ import java.util.List;
 
 public class Manager extends Entity{
 
-    private long id;
+    private int id;
     private String name;
     private String lastName;
     private List<Order> orderList;
 
     public Manager(){}
 
-    public Manager(long id, String name, String lastName){
+    public Manager(int id, String name, String lastName){
         this.id = id;
         this.name = name;
         this.lastName = lastName;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -66,7 +66,7 @@ public class Manager extends Entity{
     public int hashCode(){
         final int number = 31;
         int result = 1;
-        result = number * result + (int) id;
+        result = number * result + id;
         result = number * result + name.hashCode();
         result = number * result + lastName.hashCode();
         return result;

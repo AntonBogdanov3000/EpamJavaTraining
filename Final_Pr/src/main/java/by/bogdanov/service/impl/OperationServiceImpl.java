@@ -27,4 +27,33 @@ public class OperationServiceImpl extends ServiceImpl implements OperationServic
         }
         return operationList;
     }
+
+    @Override
+    public Operation readOperationById(int id) throws ServiceException {
+        Operation operation = new Operation();
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OperationDao operationDao = transaction.createDao(DaoEnum.OPERATION_DAO);
+            operation = operationDao.readById(id);
+        }catch (DaoException e){}
+        return operation;
+    }
+
+    @Override
+    public void createOrderOperation(int order_id, int operation_id) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OperationDao operationDao = transaction.createDao(DaoEnum.OPERATION_DAO);
+            operationDao.createOrderOperation(order_id, operation_id);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void addOperationToOrder(Operation operation) throws ServiceException {
+
+    }
 }

@@ -15,21 +15,26 @@ public class Operation extends Entity{
     public void setId(int id) {
         this.id = id;
     }
-    public long getId() {
+    public int getId() {
         return id;
     }
+
     public void setOperationName(String operationName) {
         this.operationName = operationName;
     }
+
     public String getOperationName() {
         return operationName;
     }
+
     public void setOperationPrice(int operationPrice) {
         this.operationPrice = operationPrice;
     }
+
     public int getOperationPrice() {
         return operationPrice;
     }
+
     public String toString(){
         return "Operation id: " + this.id + " - " + this.operationName+"\n"
                 +"Price: " +this.operationPrice;

@@ -18,6 +18,7 @@
         <form action="${pageContext.request.contextPath}/control" method="post">
             <input type="hidden" name="path" value="registration.jsp"/>
             <input type="hidden" name="command" value=""/>
+            <input type="hidden" name="role" value="1"/>
             <input type="submit" value="Registration"/>
         </form>
     </div>

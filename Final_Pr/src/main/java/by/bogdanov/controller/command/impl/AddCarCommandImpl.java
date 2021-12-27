@@ -7,7 +7,6 @@ import by.bogdanov.service.ServiceException;
 import by.bogdanov.service.ServiceFactory;
 import by.bogdanov.service.UserService;
 import by.bogdanov.service.VehicleService;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class AddCarCommandImpl implements Command {

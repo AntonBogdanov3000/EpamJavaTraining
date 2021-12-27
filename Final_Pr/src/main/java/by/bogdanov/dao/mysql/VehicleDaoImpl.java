@@ -3,7 +3,6 @@ package by.bogdanov.dao.mysql;
 import by.bogdanov.dao.DaoException;
 import by.bogdanov.dao.VehicleDao;
 import by.bogdanov.entity.Vehicle;
-import by.bogdanov.dao.connection.ConnectionCreator;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,7 @@ public class VehicleDaoImpl implements VehicleDao {
     private static final String SQL_INSERT_VEHICLE = "INSERT INTO vehicle (owner_id, model, plate, mileage,year) VALUES (?,?,?,?,?)";
     private static final String SQL_READ_VEHICLE_ID = "SELECT model, plate, owner_id, year, mileage FROM vehicle WHERE id=?";
     private static final String SQL_SELECT_ALL_VEHICLES = "SELECT * FROM vehicle";
+    private static final String SQL_SELECT_VEHICLE_BY_PLATE = "SELECT id, model, owner_id, year, mileage FROM vehicle WHERE plate=?";
     private static final String SQL_DELETE_VEHICLE_BY_ID = "DELETE FROM vehicle WHERE id=?";
     private static final String SQL_UPDATE_VEHICLE = "UPDATE vehicle SET owner_id=?, model=?, plate=?, mileage=?, year=? WHERE id=?";
     private static final String SQL_READ_VEHICLE_BY_YEAR = "SELECT model, mileage, plate FROM vehicle WHERE year=?";
@@ -131,6 +131,28 @@ public class VehicleDaoImpl implements VehicleDao {
             throw new DaoException(e);
         }
         return list;
+    }
+
+    @Override
+    public Vehicle readByPlate(String plate) throws DaoException {
+        Vehicle vehicle = new Vehicle();
+        PreparedStatement statement = null;
+        try{
+            statement = connection.prepareStatement(SQL_SELECT_VEHICLE_BY_PLATE);
+            statement.setString(1,plate);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                vehicle.setId(resultSet.getInt("id"));
+                vehicle.setModel(resultSet.getString("model"));
+                vehicle.setOwnerId(resultSet.getInt("owner_id"));
+                vehicle.setMileage(resultSet.getInt("mileage"));
+                vehicle.setYear(resultSet.getInt("year"));
+                vehicle.setPlate(plate);
+            }
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
+        return vehicle;
     }
 
 }

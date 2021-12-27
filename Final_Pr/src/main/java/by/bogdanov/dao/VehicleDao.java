@@ -11,4 +11,5 @@ public interface VehicleDao extends BaseDao<Vehicle> {
     void create(Vehicle vehicle) throws DaoException;
     void update(Vehicle vehicle) throws DaoException;
     List<Vehicle> readByYear(int year) throws DaoException;
+    Vehicle readByPlate(String plate) throws DaoException;
 }

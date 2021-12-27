@@ -36,11 +36,12 @@ public class ControllerServlet extends HttpServlet {
 
        HttpSession session = request.getSession();
        String userLogin = (String) session.getAttribute("login");
+        System.out.println(userLogin);
        try{
            if(userLogin != null){
-               session.setAttribute("login",request.getAttribute("login"));
+               session.setAttribute("login",userLogin);
            }else {
-               session.removeAttribute("userName");
+               session.removeAttribute("login");
            }
        }catch (Exception e){}
 

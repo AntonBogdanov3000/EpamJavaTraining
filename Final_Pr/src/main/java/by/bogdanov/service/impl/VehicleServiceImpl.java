@@ -49,6 +49,18 @@ public class VehicleServiceImpl extends ServiceImpl implements VehicleService {
     }
 
     @Override
+    public Vehicle readByPlate(String plate) throws ServiceException {
+        Vehicle vehicle = new Vehicle();
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
+            vehicle = vehicleDao.readByPlate(plate);
+        }catch (DaoException e){}
+        return vehicle;
+    }
+
+    @Override
     public void createVehicle(Vehicle vehicle) throws ServiceException {
         try{
             TransactionFactory factory = new TransactionFactoryImpl();

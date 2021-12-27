@@ -1,6 +1,5 @@
 package by.bogdanov.dao.mysql;
 
-import by.bogdanov.dao.connection.ConnectionCreator;
 import by.bogdanov.dao.DaoException;
 import by.bogdanov.dao.ManagerDao;
 import by.bogdanov.entity.Manager;
@@ -12,7 +11,13 @@ import org.apache.log4j.Logger;
 
 public class ManagerDaoImpl implements ManagerDao {
 
+    private Connection connection;
 
+    public ManagerDaoImpl(Connection connection){
+        this.connection = connection;
+    }
+
+    public ManagerDaoImpl(){}
 
     private static final String SQL_SELECT_ALL_MANAGER = "SELECT * FROM manager";
     private static final String SQL_SELECT_MANAGER_BY_ID = "SELECT name, lastname FROM manager WHERE id=?";
@@ -24,15 +29,13 @@ public class ManagerDaoImpl implements ManagerDao {
     @Override
     public List<Manager> readAll() throws DaoException {
         List<Manager> managerList = new ArrayList<>();
-        Connection connection = null;
         Statement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_MANAGER);
             while (resultSet.next()){
                 Manager manager = new Manager();
-                manager.setId(resultSet.getLong("id"));
+                manager.setId(resultSet.getInt("id"));
                 manager.setName(resultSet.getString("name"));
                 manager.setLastName(resultSet.getString("lastname"));
                 managerList.add(manager);
@@ -46,10 +49,8 @@ public class ManagerDaoImpl implements ManagerDao {
     @Override
     public Manager readById(int id) throws DaoException {
         Manager manager = new Manager();
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.prepareStatement(SQL_SELECT_MANAGER_BY_ID);
             statement.setLong(1,id);
             ResultSet resultSet = statement.executeQuery();
@@ -67,7 +68,6 @@ public class ManagerDaoImpl implements ManagerDao {
     @Override
     public void delete(int id) throws DaoException {
         try {
-            Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_MANAGER_BY_ID);
             statement.setLong(1,id);
             statement.executeUpdate();
@@ -79,7 +79,6 @@ public class ManagerDaoImpl implements ManagerDao {
     @Override
             public void create(Manager manager) throws DaoException {
         try{
-            Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_CREATE_MANAGER);
             statement.setLong(1,manager.getId());
             statement.setString(2,manager.getName());
@@ -93,7 +92,6 @@ public class ManagerDaoImpl implements ManagerDao {
     @Override
     public void update(Manager manager) throws DaoException {
         try{
-            Connection connection = ConnectionCreator.getInstance().createConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_MANAGER);
             statement.setString(1,manager.getName());
             statement.setString(2,manager.getLastName());
@@ -107,15 +105,13 @@ public class ManagerDaoImpl implements ManagerDao {
     @Override
     public Manager readByLastName(String lastname) throws DaoException {
         Manager manager = new Manager();
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionCreator.getInstance().createConnection();
             statement = connection.prepareStatement(SQL_SELECT_MANAGER_BY_LASTNAME);
             statement.setString(1,lastname);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                manager.setId(resultSet.getLong("id"));
+                manager.setId(resultSet.getInt("id"));
                 manager.setName(resultSet.getString("name"));
                 manager.setLastName(lastname);
             }

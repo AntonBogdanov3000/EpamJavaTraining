@@ -9,6 +9,7 @@ public final class ServiceFactory {
     private final VehicleService vehicleService = new VehicleServiceImpl();
     private final OrderService orderService = new OrderServiceImpl();
     private final OperationService operationService = new OperationServiceImpl();
+    private final ClearanceService clearanceService = new ClearanceServiceImpl();
     private final ConnectionService connectionService = new ConnectionServiceImpl();
 
 
@@ -28,6 +29,7 @@ public final class ServiceFactory {
     public OperationService getOperationService(){
         return operationService;
     }
+    public ClearanceService getClearanceService() { return clearanceService; }
     public ConnectionService getConnectionService() {
         return connectionService;
     }

@@ -6,6 +6,7 @@ import by.bogdanov.entity.Order;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Statement;
 import org.apache.log4j.Logger;
 
 
@@ -16,13 +17,14 @@ public class OrderDaoImpl implements OrderDao {
         this.connection = connection;
     }
     public OrderDaoImpl(){}
+    public static int id;
 
     private static final String SQL_SELECT_ALL_ORDERS = "SELECT * FROM orders";
-    private static final String SQL_READ_ORDER_BY_ID = "SELECT user_id, total_price, date FROM orders WHERE id=?";
+    private static final String SQL_READ_ORDER_BY_ID = "SELECT user_id, total_price, vehicle_id, date FROM orders WHERE id=?";
     private static final String SQL_DELETE_ORDER_BY_ID = "DELETE FROM orders WHERE id=?";
-    private static final String SQL_CREATE_ORDER = "INSERT INTO orders(id, user_id, date, total_price) VALUES(?,?,?,?)";
+    private static final String SQL_CREATE_ORDER = "INSERT INTO orders(user_id, date, total_price, vehicle_id) VALUES(?,?,?,?)";
     private static final String SQL_UPDATE_ORDER = "UPDATE orders SET user_id=?, date=?, total_price=? WHERE id=?";
-    private static final String SQL_READ_ORDERS_BY_USER_ID = "SELECT id, total_price, date FROM orders WHERE user_id=?";
+    private static final String SQL_READ_ORDERS_BY_USER_ID = "SELECT id, total_price, vehicle_id, date FROM orders WHERE user_id=?";
 
     @Override
     public List<Order> readAll() throws DaoException {
@@ -37,6 +39,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setPrice(resultSet.getInt("total_price"));
                 order.setDate(resultSet.getDate("date"));
                 order.setUserId(resultSet.getInt("user_id"));
+                order.setVehicleId(resultSet.getInt("vehicle_id"));
                 orderList.add(order);
             }
         } catch (SQLException e){
@@ -56,6 +59,7 @@ public class OrderDaoImpl implements OrderDao {
             while (resultSet.next()){
             order.setUserId(resultSet.getInt("user_id"));
             order.setPrice(resultSet.getInt("total_price"));
+            order.setVehicleId(resultSet.getInt("vehicle_id"));
             order.setDate(resultSet.getDate("date"));
             order.setId(id);
             }
@@ -80,12 +84,16 @@ public class OrderDaoImpl implements OrderDao {
     public void create(Order order) throws DaoException {
         java.sql.Date sqlDate = new java.sql.Date(order.getDate().getTime());
         try{
-            PreparedStatement statement = connection.prepareStatement(SQL_CREATE_ORDER);
-            statement.setLong(1,order.getId());
-            statement.setLong(2,order.getUserId());
-            statement.setDate(3,sqlDate);
-            statement.setInt(4,order.getPrice());
+            PreparedStatement statement = connection.prepareStatement(SQL_CREATE_ORDER,Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1,order.getUserId());
+            statement.setDate(2, sqlDate);
+            statement.setInt(3,order.getPrice());
+            statement.setInt(4,order.getVehicleId());
             statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            while (rs.next()){
+                id = rs.getInt(1);
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -118,6 +126,7 @@ public class OrderDaoImpl implements OrderDao {
                 Order order = new Order();
                 order.setId(resultSet.getInt("id"));
                 order.setPrice(resultSet.getInt("total_price"));
+                order.setVehicleId(resultSet.getInt("vehicle_id"));
                 order.setDate(resultSet.getDate("date"));
                 order.setUserId(id);
                 orderList.add(order);

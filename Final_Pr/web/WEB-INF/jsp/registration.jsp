@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <html>
@@ -12,8 +13,17 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/control" method="post">
-    <input type="hidden" name="path" value="/welcomePage.jsp"/>
+
     <input type="hidden" name="command" value="REGISTRATION"/>
+    <input type="hidden" name="role" value="${pageContext.request.getParameter("role")}"/>
+
+    <c:set var="role" value="${pageContext.request.getParameter('role')}"/>
+    <c:if test="${role == 1}">
+        <input type="hidden" name="path" value="/welcomePage.jsp"/>
+    </c:if>
+    <c:if test="${role == 2}">
+        <input type="hidden" name="path" value="/AdminPage.jsp"/>
+    </c:if>
     <br/>
     <label>Name:
         <input type="text" name="name" value=""/>

@@ -20,7 +20,7 @@ public class TransactionImpl implements Transaction {
             case VEHICLE_DAO: return (T) new VehicleDaoImpl(connection);
             case ORDER_DAO: return (T) new OrderDaoImpl(connection);
             case OPERATION_DAO: return (T) new OperationDaoImpl(connection);
-
+            case CLEARANCE_DAO: return (T) new ClearanceDaoImpl(connection);
         }
         return null;
     }

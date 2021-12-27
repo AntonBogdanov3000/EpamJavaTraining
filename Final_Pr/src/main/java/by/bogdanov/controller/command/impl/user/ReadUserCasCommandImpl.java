@@ -1,4 +1,4 @@
-package by.bogdanov.controller.command.impl;
+package by.bogdanov.controller.command.impl.user;
 
 import by.bogdanov.controller.command.Command;
 import by.bogdanov.entity.User;

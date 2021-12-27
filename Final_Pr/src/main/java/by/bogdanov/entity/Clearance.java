@@ -5,21 +5,23 @@ import java.util.List;
 
 public class Clearance extends Entity{
 
-    private long id;
+    private int id;
     private String name;
     private Date startDate;
     private Date endDate;
-    private List<Order> orderList;
+    private int discount;
+    private List<Operation> operationList;
 
     public Clearance(){}
-    public Clearance(long id, String name, Date startDate, Date endDate){
+    public Clearance(int id, String name, Date startDate, Date endDate, int discount){
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.discount = discount;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,10 +52,28 @@ public class Clearance extends Entity{
     public Date getEndDate() {
         return endDate;
     }
+
+    public void setDiscount(int discont) {
+        this.discount = discont;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setOperationList(List<Operation> operationList) {
+        this.operationList = operationList;
+    }
+
+    public List<Operation> getOperationList() {
+        return operationList;
+    }
+
     public String toString(){
         return "Id: " + this.id + "\n"
                 +"Clearance name: " + this.name + "\n"
-                +"Start / End: " + this.startDate + " / " + this.endDate + "\n";
+                +"Start - End: " + this.startDate + " -- " + this.endDate + "\n"
+                +"Discount " + this.discount + "%";
     }
     public boolean equals(Object obj){
         if(obj == this){
@@ -75,19 +95,24 @@ public class Clearance extends Entity{
         if(clearance.endDate != this.endDate){
             return false;
         }
-        if(clearance.orderList != this.orderList){
+        if(clearance.discount != this.discount){
+            return false;
+        }
+        if(clearance.operationList != this.operationList){
             return false;
         }
         return true;
     }
+
     public int hashCode(){
         final int number = 31;
         int result = 1;
-        result = number * result + (int) id;
+        result = number * result + id;
         result = number * result + name.hashCode();
         result = number * result + startDate.hashCode();
         result = number * result + endDate.hashCode();
-        result = number * result + orderList.hashCode();
+        result = number * result + discount;
+        result = number * result + operationList.hashCode();
         return result;
     }
 }

@@ -25,11 +25,38 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
             VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
             OperationDao operationDao = transaction.createDao(DaoEnum.OPERATION_DAO);
-
             user = userDao.readById(id);
             orderList = orderDao.readAll();
             for(Order order : orderList){
                 if(order.getUserId() == user.getId()){
+                    operationList = operationDao.readByOrderId(order.getId());
+                    order.setOperationList(operationList);
+                    order.setVehicle(vehicleDao.readById(order.getVehicleId()));
+                    result.add(order);
+                }
+            }
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Order> readOrdersByManagerId(int id) throws ServiceException {
+        List<Order> orderList;
+        List<Order> result = new ArrayList<>();
+        List<Operation> operationList;
+
+        try {
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
+            VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
+            OperationDao operationDao = transaction.createDao(DaoEnum.OPERATION_DAO);
+            orderList = orderDao.readAll();
+
+            for(Order order : orderList){
+                if(order.getManagerId() == id){
                     operationList = operationDao.readByOrderId(order.getId());
                     order.setOperationList(operationList);
                     order.setVehicle(vehicleDao.readById(order.getVehicleId()));
@@ -61,6 +88,18 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             transaction = factory.createTransaction();
             OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
             orderDao.update(order);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void deleteOrder(Order order) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
+            orderDao.delete(order.getId());
         }catch (DaoException e){
             throw new ServiceException(e);
         }

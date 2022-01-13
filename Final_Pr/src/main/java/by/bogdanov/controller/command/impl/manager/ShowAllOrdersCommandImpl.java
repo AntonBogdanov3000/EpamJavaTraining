@@ -15,9 +15,15 @@ public class ShowAllOrdersCommandImpl implements Command {
         String page = request.getParameter("path");
         List<Order> orderList;
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
+        String idManager = request.getParameter("idManager");
         try{
-            orderList = orderService.readAllOrders();
-            request.setAttribute("orderList", orderList);
+            if(idManager.isEmpty()) {
+                orderList = orderService.readAllOrders();
+                request.setAttribute("orderList", orderList);
+            } else{
+                orderList = orderService.readOrdersByManagerId(Integer.parseInt(idManager));
+                request.setAttribute("orderList", orderList);
+            }
         } catch (ServiceException e){}
         return page;
     }

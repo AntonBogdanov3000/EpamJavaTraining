@@ -18,6 +18,7 @@ public class ShowPricesCommandImpl implements Command {
         try{
             operationList = operationService.readAllOperations();
             request.setAttribute("operationList",operationList);
+            request.setAttribute("manager", request.getParameter("idManager"));
         }catch (ServiceException e){
             e.printStackTrace();
         }

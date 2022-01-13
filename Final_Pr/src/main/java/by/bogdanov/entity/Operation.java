@@ -15,6 +15,7 @@ public class Operation extends Entity{
     public void setId(int id) {
         this.id = id;
     }
+
     public int getId() {
         return id;
     }
@@ -36,7 +37,7 @@ public class Operation extends Entity{
     }
 
     public String toString(){
-        return "Operation id: " + this.id + " - " + this.operationName+"\n"
+        return "id: " + this.id + "|" + " " + this.operationName+"\n"
                 +"Price: " +this.operationPrice;
     }
     public boolean equals(Object obj){

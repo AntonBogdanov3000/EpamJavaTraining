@@ -8,7 +8,9 @@ public class LogoutCommandImpl implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         String page = request.getParameter("path");
-        request.getSession().invalidate();
+        if(!request.getSession().isNew()) {
+            request.getSession().invalidate();
+        }
         return page;
     }
 }

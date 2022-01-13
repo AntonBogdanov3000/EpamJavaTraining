@@ -16,11 +16,12 @@ public class ClearanceDaoImpl implements ClearanceDao {
         this.connection = connection;
     }
     public ClearanceDaoImpl(){}
+    public static int id;
 
     private static final String SQL_SELECT_ALL_CLEARANCE = "SELECT * FROM clearance";
     private static final String SQL_READ_CLEARANCE_BY_ID = "SELECT name, start_date, end_date, discount FROM clearance WHERE id=?";
     private static final String SQL_DELETE_CLEARANCE_BY_ID = "DELETE FROM clearance WHERE id=?";
-    private static final String SQL_CREATE_CLEARANCE = "INSERT INTO clearance(name, start_date, end_date, discount) VALUES(?,?,?,?)";
+    private static final String SQL_CREATE_CLEARANCE = "INSERT INTO clearance(name, start_date, end_date, operation_id, discount) VALUES(?,?,?,?,?)";
     private static final String SQL_UPDATE_CLEARANCE = "UPDATE clearance SET name=?, start_date=?, end_date=? ,discount=? WHERE id=?";
 
     @Override
@@ -33,6 +34,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
             while (resultSet.next()){
                 Clearance clearance = new Clearance();
                 clearance.setId(resultSet.getInt("id"));
+                clearance.setOperation_id(resultSet.getInt("operation_id"));
                 clearance.setName(resultSet.getString("name"));
                 clearance.setStartDate(resultSet.getDate("start_date"));
                 clearance.setEndDate(resultSet.getDate("end_date"));
@@ -70,7 +72,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
     public void delete(int id) throws DaoException {
         try {
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLEARANCE_BY_ID);
-            statement.setLong(1,id);
+            statement.setInt(1,id);
             statement.executeUpdate();
         }catch (SQLException e){
             throw new DaoException(e);
@@ -82,12 +84,17 @@ public class ClearanceDaoImpl implements ClearanceDao {
         java.sql.Date sqlDateStart = new java.sql.Date(clearance.getStartDate().getTime());
         java.sql.Date sqlDateEnd = new java.sql.Date(clearance.getEndDate().getTime());
         try{
-            PreparedStatement statement = connection.prepareStatement(SQL_CREATE_CLEARANCE);
+            PreparedStatement statement = connection.prepareStatement(SQL_CREATE_CLEARANCE,Statement.RETURN_GENERATED_KEYS);
             statement.setString(1,clearance.getName());
             statement.setDate(2,sqlDateStart);
             statement.setDate(3,sqlDateEnd);
-            statement.setInt(4,clearance.getDiscount());
+            statement.setInt(4,clearance.getOperation_id());
+            statement.setInt(5,clearance.getDiscount());
             statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            while (rs.next()){
+                id = rs.getInt(1);
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }

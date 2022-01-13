@@ -14,14 +14,14 @@ public class ReadUserCasCommandImpl implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        User user = new User();
+        User user;
         List<Vehicle> vehicleList;
         String page = request.getParameter("path");
         VehicleService vehicleService = ServiceFactory.getInstance().getVehicleService();
         UserService userService = ServiceFactory.getInstance().getUserService();
         try{
         user = userService.readUserByLogin(request.getParameter("login"));
-        vehicleList = vehicleService.readVehicleByUserId((int) user.getId());
+        vehicleList = vehicleService.readVehicleByUserId(user.getId());
         request.setAttribute("vehicleList",vehicleList);
         }catch (ServiceException e){}
         return page;

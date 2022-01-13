@@ -29,10 +29,12 @@ public class CreateOrderCommandImpl implements Command {
         List<Operation> operationList = new ArrayList<>();
 
         try {
+            int idManager = (int) request.getSession().getAttribute("idManager");
             user = userService.readUserByLogin(request.getParameter("login"));
             vehicle = vehicleService.readByPlate(request.getParameter("vehicle"));
-            String s = new String(request.getParameter("operation"));
-            operation = operationService.readOperationById(Integer.parseInt(s.substring(14,15)));
+            String s =  request.getParameter("operation");
+            String delimiter = s.substring(4,s.indexOf('|'));
+            operation = operationService.readOperationById(Integer.parseInt(delimiter));
 
             operationList.add(operation);
             order.setUserId(user.getId());
@@ -40,6 +42,7 @@ public class CreateOrderCommandImpl implements Command {
             order.setPrice(Integer.parseInt(request.getParameter("price")));
             order.setVehicleId(vehicle.getId());
             order.setVehicle(vehicle);
+            order.setManagerId(idManager);
             order.setOperationList(operationList);
             orderService.createOrder(order);
 

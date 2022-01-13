@@ -21,10 +21,13 @@ public class UpdateOrderCommandImpl implements Command {
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
 
         try{
-            String s = request.getParameter("operation");
-            String or = request.getParameter("order");
-            operation = operationService.readOperationById(Integer.parseInt(s.substring(14,15)));
-            order = orderService.readOrderById(Integer.parseInt(or.substring(24,26)));
+              String s = request.getParameter("operation");
+              String delimiter = s.substring(4,s.indexOf('|'));
+
+              operation = operationService.readOperationById(Integer.parseInt(delimiter));
+              order = orderService.readOrderById(Integer.parseInt(request.getParameter("order")));
+
+
             order.setPrice(order.getPrice() + operation.getOperationPrice());
             orderId = order.getId();
             orderService.updateOrder(order);

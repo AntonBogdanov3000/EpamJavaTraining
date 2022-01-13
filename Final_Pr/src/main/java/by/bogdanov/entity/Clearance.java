@@ -10,7 +10,8 @@ public class Clearance extends Entity{
     private Date startDate;
     private Date endDate;
     private int discount;
-    private List<Operation> operationList;
+    private int operation_id;
+    private Operation operation;
 
     public Clearance(){}
     public Clearance(int id, String name, Date startDate, Date endDate, int discount){
@@ -61,17 +62,26 @@ public class Clearance extends Entity{
         return discount;
     }
 
-    public void setOperationList(List<Operation> operationList) {
-        this.operationList = operationList;
+    public void setOperation_id(int operation_id) {
+        this.operation_id = operation_id;
     }
 
-    public List<Operation> getOperationList() {
-        return operationList;
+    public int getOperation_id() {
+        return operation_id;
+    }
+
+    public void setOperation(Operation operation) {
+        this.operation = operation;
+    }
+
+    public Operation getOperationList() {
+        return operation;
     }
 
     public String toString(){
         return "Id: " + this.id + "\n"
                 +"Clearance name: " + this.name + "\n"
+                +"Works: " + this.operation + "\n"
                 +"Start - End: " + this.startDate + " -- " + this.endDate + "\n"
                 +"Discount " + this.discount + "%";
     }
@@ -98,7 +108,7 @@ public class Clearance extends Entity{
         if(clearance.discount != this.discount){
             return false;
         }
-        if(clearance.operationList != this.operationList){
+        if(clearance.operation != this.operation){
             return false;
         }
         return true;
@@ -112,7 +122,7 @@ public class Clearance extends Entity{
         result = number * result + startDate.hashCode();
         result = number * result + endDate.hashCode();
         result = number * result + discount;
-        result = number * result + operationList.hashCode();
+        result = number * result + operation.hashCode();
         return result;
     }
 }

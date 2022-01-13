@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_SELECT_USER_ID = "SELECT name, lastname, login, role, telephone, password FROM users WHERE id=?";
     private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT id, name, lastname, password, telephone, role  FROM users WHERE login=?";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM users WHERE id=?";
-    private static final String SQL_UPDATE_USER = "UPDATE users SET name=?,lastname=?,password=?,login=?,telephone=?,role=? WHERE id=?";
+    private static final String SQL_UPDATE_USER = "UPDATE users SET name=?, lastname=?, password=?, login=?, telephone=?, role=? WHERE id=?";
 
     @Override
     public List<User> readAll() throws DaoException {
@@ -110,8 +110,8 @@ public class UserDaoImpl implements UserDao {
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getLogin());
             statement.setString(5, user.getTelephone());
-            statement.setLong(6,user.getId());
-            statement.setInt(7,user.getRole());
+            statement.setInt(6,user.getRole());
+            statement.setInt(7, user.getId());
             statement.executeUpdate();
         }catch (SQLException e){
             throw new DaoException(e);

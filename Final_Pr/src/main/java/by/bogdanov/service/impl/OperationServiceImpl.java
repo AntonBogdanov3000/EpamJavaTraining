@@ -53,7 +53,15 @@ public class OperationServiceImpl extends ServiceImpl implements OperationServic
     }
 
     @Override
-    public void addOperationToOrder(Operation operation) throws ServiceException {
-
+    public void createClearanceOperation(int clear_id, int operation_id) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            OperationDao operationDao = transaction.createDao(DaoEnum.OPERATION_DAO);
+            operationDao.createClearanceOperation(clear_id, operation_id);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
     }
+
 }

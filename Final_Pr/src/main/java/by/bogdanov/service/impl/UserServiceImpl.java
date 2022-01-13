@@ -33,9 +33,22 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public void deleteUser(User user) throws ServiceException {
         try{
-            DaoFactory daoFactory = DaoFactory.getInstance();
-            UserDao userDao = daoFactory.getUserDao();
-            userDao.delete((int) user.getId());
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            UserDao userDao = transaction.createDao(DaoEnum.USER_DAO);
+            userDao.delete(user.getId());
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateUser(User user) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            UserDao userDao = transaction.createDao(DaoEnum.USER_DAO);
+            userDao.update(user);
         }catch (DaoException e){
             throw new ServiceException(e);
         }
@@ -89,6 +102,9 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         VehicleServiceImpl vehicleService = new VehicleServiceImpl();
         OperationServiceImpl operationService = new OperationServiceImpl();
         ClearanceServiceImpl clearanceService = new ClearanceServiceImpl();
+        for(Order order : orderService.readOrdersByManagerId(10)){
+            System.out.println(order);
+        }
 
 
     }

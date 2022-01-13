@@ -13,7 +13,13 @@ public enum CommandName {
     UPDATE_ORDER,
     SHOW_CLIENTS,
     CREATE_MANAGER,
-    SHOW_ALL_CLEARANCE;
+    SHOW_ALL_CLEARANCE,
+    DELETE_USER,
+    UPDATE_USER,
+    DELETE_ORDER,
+    CHANGE_LANG,
+    CREATE_CLEARANCE,
+    DELETE_CLEARANCE;
 
     public String getName(){
         return name();

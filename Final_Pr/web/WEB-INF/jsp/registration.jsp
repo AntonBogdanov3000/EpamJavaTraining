@@ -1,4 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${pageContext.session.getAttribute('locale')}"/>
+<fmt:setBundle basename="text" var="rb" scope="session"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <html>
@@ -17,35 +22,40 @@
     <input type="hidden" name="command" value="REGISTRATION"/>
     <input type="hidden" name="role" value="${pageContext.request.getParameter("role")}"/>
 
-    <c:set var="role" value="${pageContext.request.getParameter('role')}"/>
-    <c:if test="${role == 1}">
+    <c:set var="number" value="${pageContext.request.getParameter('number')}"/>
+
+    <c:if test="${number == 1}">
         <input type="hidden" name="path" value="/welcomePage.jsp"/>
     </c:if>
-    <c:if test="${role == 2}">
+    <c:if test="${number == 3}">
         <input type="hidden" name="path" value="/AdminPage.jsp"/>
     </c:if>
+    <c:if test="${number == 2}">
+        <input type="hidden" name="path" value="/ManagerPage.jsp"/>
+    </c:if>
     <br/>
-    <label>Name:
+    <label><fmt:message key="registrationPage1" bundle="${rb}"/>:
         <input type="text" name="name" value=""/>
     </label>
     <br/>
-    <label>Lastname:
+    <label><fmt:message key="registrationPage2" bundle="${rb}"/>:
         <input type="text" name="lastname" value=""/>
     </label>
     <br/>
-    <label>Password:
+    <label><fmt:message key="registrationPage3" bundle="${rb}"/>:
         <input type="password" name="password" value=""/>
     </label>
     <br/>
-    <label>Login:
+    <label><fmt:message key="registrationPage4" bundle="${rb}"/>:
         <input type="text" name="login" value=""/>
     </label>
     <br/>
-    <label>Telephone:
+    <label><fmt:message key="registrationPage5" bundle="${rb}"/>:
         <input type="text" name="telephone" value=""/>
     </label>
     <br/>
-    <input type="submit" value="Confirm"/>
+    <fmt:message key="registrationPage6" var="msg" bundle="${rb}"/>
+    <input type="submit" value="${msg}"/>
 </form>
 </body>
 </html>

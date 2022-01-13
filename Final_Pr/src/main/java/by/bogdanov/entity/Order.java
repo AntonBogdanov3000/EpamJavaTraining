@@ -10,24 +10,37 @@ public class Order extends Entity {
     private int price;
     private Date date;
     private int userId;
+    private int managerId;
     private List<Operation> operationList;
     private Vehicle vehicle;
 
     public Order(){}
-    public Order(int id, int vehicleId, int price, Date date, int userId){
+    public Order(int id, int vehicleId, int price, Date date, int userId, int managerId){
         this.id = id;
         this.vehicleId = vehicleId;
         this.price = price;
         this.date = date;
         this.userId = userId;
+        this.managerId = managerId;
     }
 
     public void setId(int id) {
         this.id = id;
     }
+
     public int getId() {
         return id;
     }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
+    }
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+
 
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
@@ -77,6 +90,7 @@ public class Order extends Entity {
         return "Client id: " + this.userId + "\n" +
                 "Order id: " + this.id + "; Price: " + this.price + "\n" +
                      "Car: " + this.vehicle + "\n" +
+                "Manager :" + this.managerId + "\n" +
                 this.date+"\n" + this.operationList;
     }
 

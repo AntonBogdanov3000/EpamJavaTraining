@@ -25,6 +25,7 @@ public class OperationDaoImpl implements OperationDao {
     private final static String SQL_READ_OPERATION_BY_PRICE = "SELECT id, operation_name FROM operations WHERE price=?";
     private final static String SQL_READ_OPERATION_BY_ORDER_ID = "SELECT operation_id FROM order_operation WHERE order_id=?";
     private final static String SQL_CREATE_ORDER_OPERATION = "INSERT INTO order_operation(order_id, operation_id) VALUES (?,?)";
+    private final static String SQL_CREATE_CLEARANCE_OPERATION = "INSERT INTO operation_clearance (operation_id, clearance_id) VALUES (?,?)";
 
     @Override
     public List<Operation> readAll() throws DaoException {
@@ -107,6 +108,18 @@ public class OperationDaoImpl implements OperationDao {
             PreparedStatement statement = connection.prepareStatement(SQL_CREATE_ORDER_OPERATION);
             statement.setInt(1,order_id);
             statement.setInt(2,operation_id);
+            statement.executeUpdate();
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void createClearanceOperation(int clear_id, int operation_id) throws DaoException {
+        try{
+            PreparedStatement statement = connection.prepareStatement(SQL_CREATE_CLEARANCE_OPERATION);
+            statement.setInt(1,operation_id);
+            statement.setInt(2,clear_id);
             statement.executeUpdate();
         }catch (SQLException e){
             throw new DaoException(e);

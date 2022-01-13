@@ -39,4 +39,28 @@ public class ClearanceServiceImpl extends ServiceImpl implements ClearanceServic
         }
         return clearanceList;
     }
+
+    @Override
+    public void createClearance(Clearance clearance) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            ClearanceDao clearanceDao = transaction.createDao(DaoEnum.CLEARANCE_DAO);
+            clearanceDao.create(clearance);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void deleteClearance(int clearId) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            ClearanceDao clearanceDao = transaction.createDao(DaoEnum.CLEARANCE_DAO);
+            clearanceDao.delete(clearId);
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
 }

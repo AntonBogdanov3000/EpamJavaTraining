@@ -83,7 +83,7 @@ public class User extends Entity {
     }
 
     public String toString(){
-        return "Client id: " + this.id + "\n"
+        return "User id: " + this.id + "\n"
                 +this.name +" " + this.lastName + "\n" +
                 "Login: " + this.login + "  Pass: " + this.password + "\n"
                 +"Tel: " + this.telephone + "\n";

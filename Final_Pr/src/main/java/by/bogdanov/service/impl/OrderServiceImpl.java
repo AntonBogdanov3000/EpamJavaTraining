@@ -9,8 +9,14 @@ import by.bogdanov.service.OrderService;
 import by.bogdanov.service.ServiceException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class OrderServiceImpl extends ServiceImpl implements OrderService {
+
+    private final Logger logger = LogManager.getLogger(OrderServiceImpl.class);
+
     @Override
     public List<Order> readOrdersByUserId(int id) throws ServiceException {
         List<Order> orderList;
@@ -36,6 +42,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
                 }
             }
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
         return result;
@@ -64,6 +71,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
                 }
             }
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
         return result;
@@ -77,6 +85,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
             orderDao.create(order);
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
     }
@@ -89,6 +98,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
             orderDao.update(order);
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
     }
@@ -101,6 +111,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
             orderDao.delete(order.getId());
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
     }
@@ -125,6 +136,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             }
 
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
         return orderList;
@@ -139,6 +151,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
             OrderDao orderDao = transaction.createDao(DaoEnum.ORDER_DAO);
             order = orderDao.readById(id);
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
         return order;

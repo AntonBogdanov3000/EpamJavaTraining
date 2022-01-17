@@ -7,8 +7,13 @@ import by.bogdanov.service.ServiceException;
 import by.bogdanov.service.ServiceFactory;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class ShowPricesCommandImpl implements Command {
+
+    private final Logger logger = LogManager.getLogger(ShowPricesCommandImpl.class);
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -20,6 +25,7 @@ public class ShowPricesCommandImpl implements Command {
             request.setAttribute("operationList",operationList);
             request.setAttribute("manager", request.getParameter("idManager"));
         }catch (ServiceException e){
+            logger.debug(e.getMessage());
             e.printStackTrace();
         }
         return page;

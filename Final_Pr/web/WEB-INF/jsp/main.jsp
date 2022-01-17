@@ -4,7 +4,7 @@
 
 <c:set var="lang" value="${pageContext.session.getAttribute('locale')}"/>
 <c:if test="${lang == null}">
-    <fmt:setLocale value="en_EN"/>
+    <fmt:setLocale value="ru_RU"/>
 </c:if>
 <c:if test="${lang != null}">
     <fmt:setLocale value="${pageContext.session.getAttribute('locale')}"/>

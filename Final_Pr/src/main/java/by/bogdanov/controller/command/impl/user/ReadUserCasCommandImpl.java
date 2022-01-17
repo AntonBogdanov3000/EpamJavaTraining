@@ -9,8 +9,13 @@ import by.bogdanov.service.VehicleService;
 import by.bogdanov.entity.Vehicle;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class ReadUserCasCommandImpl implements Command {
+
+    private final Logger logger = LogManager.getLogger(ReadUserCasCommandImpl.class);
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -23,7 +28,9 @@ public class ReadUserCasCommandImpl implements Command {
         user = userService.readUserByLogin(request.getParameter("login"));
         vehicleList = vehicleService.readVehicleByUserId(user.getId());
         request.setAttribute("vehicleList",vehicleList);
-        }catch (ServiceException e){}
+        }catch (ServiceException e){
+            logger.debug(e.getMessage());
+        }
         return page;
     }
 }

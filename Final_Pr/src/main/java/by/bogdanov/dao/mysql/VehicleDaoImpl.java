@@ -6,11 +6,12 @@ import by.bogdanov.entity.Vehicle;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class VehicleDaoImpl implements VehicleDao {
 
+    private final Logger logger = LogManager.getLogger(VehicleDaoImpl.class);
     private Connection connection;
 
     public VehicleDaoImpl(){}
@@ -30,12 +31,13 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public List<Vehicle> readAll() throws DaoException {
         List<Vehicle> vehiclesList = new ArrayList<>();
-        Statement statement = null;
+        Statement statement;
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_VEHICLES);
             while (resultSet.next()){
                 Vehicle vehicle = new Vehicle();
+                vehicle.setId(resultSet.getInt("id"));
                 vehicle.setOwnerId(resultSet.getInt("owner_id"));
                 vehicle.setModel(resultSet.getString("model"));
                 vehicle.setPlate(resultSet.getString("plate"));
@@ -43,7 +45,9 @@ public class VehicleDaoImpl implements VehicleDao {
                 vehicle.setMileage(resultSet.getInt("mileage"));
                 vehiclesList.add(vehicle);
             }
+            logger.info("VehicleList contains " + vehiclesList.size() + " cars");
         } catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return vehiclesList;
@@ -52,7 +56,7 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public Vehicle readById(int id) throws DaoException {
         Vehicle vehicle = new Vehicle();
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement(SQL_READ_VEHICLE_ID);
             statement.setLong(1,id);
@@ -64,7 +68,9 @@ public class VehicleDaoImpl implements VehicleDao {
             vehicle.setYear(resultSet.getInt("year"));
             vehicle.setMileage(resultSet.getInt("mileage"));
             }
+            logger.info("Read vehicle " + id);
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return vehicle;
@@ -76,7 +82,9 @@ public class VehicleDaoImpl implements VehicleDao {
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_VEHICLE_BY_ID);
             statement.setLong(1,id);
             statement.executeUpdate();
+            logger.info("Vehicle id: " + id + " deleted");
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
     }
@@ -90,8 +98,10 @@ public class VehicleDaoImpl implements VehicleDao {
             statement.setInt(4,vehicle.getMileage());
             statement.setInt(5,vehicle.getYear());
             statement.executeUpdate();
+            logger.info("Vehicle created " + vehicle.getModel());
             connection.close();
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
     }
@@ -106,7 +116,9 @@ public class VehicleDaoImpl implements VehicleDao {
             statement.setInt(5,vehicle.getYear());
             statement.setLong(6,vehicle.getId());
             statement.executeUpdate();
+            logger.info("Vehicle " + vehicle.getPlate() + " updated");
         }catch (SQLException e){
+           logger.debug(e.getMessage());
            throw new DaoException(e);
         }
     }
@@ -114,7 +126,7 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public List<Vehicle> readByYear(int year) throws DaoException {
         List<Vehicle> list = new ArrayList<>();
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement(SQL_READ_VEHICLE_BY_YEAR);
             statement.setLong(1,year);
@@ -127,7 +139,9 @@ public class VehicleDaoImpl implements VehicleDao {
                 vehicle.setYear(year);
                 list.add(vehicle);
             }
+            logger.info("Search for vehicles manufactured in " + year);
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return list;
@@ -136,7 +150,7 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public Vehicle readByPlate(String plate) throws DaoException {
         Vehicle vehicle = new Vehicle();
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try{
             statement = connection.prepareStatement(SQL_SELECT_VEHICLE_BY_PLATE);
             statement.setString(1,plate);
@@ -149,7 +163,9 @@ public class VehicleDaoImpl implements VehicleDao {
                 vehicle.setYear(resultSet.getInt("year"));
                 vehicle.setPlate(plate);
             }
+            logger.info("Search for vehicle with plates " + plate);
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return vehicle;

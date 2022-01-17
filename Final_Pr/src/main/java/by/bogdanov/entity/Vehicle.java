@@ -12,6 +12,7 @@ public class Vehicle extends Entity {
     public Vehicle(){}
     public Vehicle(int id, int ownerId, String model,
                    String plate, int year, int mileage ){
+        this.id = id;
         this.ownerId = ownerId;
         this.model = model;
         this.plate = plate;
@@ -67,11 +68,11 @@ public class Vehicle extends Entity {
     }
 
     public String toString(){
-        return this.model + " " + this.year +
+        return this.id + " " + this.model + " " + this.year +
                 "\n" + "Mileage: "+ this.mileage +
                 "\n" + "Plate: " + this.plate +
-                "\n" + "Client: "+ this.ownerId + "\n"
-                  +"- - - - - - - - - - - - ";
+                "\n" + "Client id : "+ this.ownerId + "\n";
+
     }
     public boolean equals(Object obj){
         if(obj == this){

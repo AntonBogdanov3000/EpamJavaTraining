@@ -10,7 +10,6 @@ public class DaoFactory {
     private final VehicleDao vehicleDaoImpl = new VehicleDaoImpl();
     private final OrderDao orderDaoImpl = new OrderDaoImpl();
     private final OperationDao operationDaoImpl = new OperationDaoImpl();
-    private final ManagerDao managerDaoImpl = new ManagerDaoImpl();
     private final ClearanceDao clearanceDaoImpl = new ClearanceDaoImpl();
 
     private DaoFactory(){}
@@ -30,9 +29,7 @@ public class DaoFactory {
     public OperationDao getOperationDao(){
         return operationDaoImpl;
     }
-    public ManagerDao getManagerDao(){
-        return managerDaoImpl;
-    }
+
     public ClearanceDao getClearanceDao(){
         return clearanceDaoImpl;
     }

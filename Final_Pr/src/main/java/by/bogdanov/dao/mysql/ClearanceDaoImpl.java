@@ -6,10 +6,12 @@ import by.bogdanov.entity.Clearance;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class ClearanceDaoImpl implements ClearanceDao {
+
+    private final Logger logger = LogManager.getLogger(ClearanceDaoImpl.class);
 
     private Connection connection;
     public ClearanceDaoImpl(Connection connection){
@@ -27,7 +29,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
     @Override
     public List<Clearance> readAll() throws DaoException {
         List<Clearance> clearanceList = new ArrayList<>();
-        Statement statement = null;
+        Statement statement;
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_CLEARANCE);
@@ -41,7 +43,9 @@ public class ClearanceDaoImpl implements ClearanceDao {
                 clearance.setDiscount(resultSet.getInt("discount"));
                 clearanceList.add(clearance);
             }
+            logger.info("ClearanceList contains " + clearanceList.size());
         } catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return clearanceList;
@@ -50,7 +54,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
     @Override
     public Clearance readById(int id) throws DaoException {
         Clearance clearance = new Clearance();
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement(SQL_READ_CLEARANCE_BY_ID);
             statement.setLong(1,id);
@@ -62,7 +66,9 @@ public class ClearanceDaoImpl implements ClearanceDao {
                 clearance.setDiscount(resultSet.getInt("discount"));
                 clearance.setId(id);
             }
+            logger.info("Clearance read by id = " + id );
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return clearance;
@@ -74,7 +80,9 @@ public class ClearanceDaoImpl implements ClearanceDao {
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLEARANCE_BY_ID);
             statement.setInt(1,id);
             statement.executeUpdate();
+            logger.info("Clearance deleted id " + id);
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
     }
@@ -94,9 +102,11 @@ public class ClearanceDaoImpl implements ClearanceDao {
             ResultSet rs = statement.getGeneratedKeys();
             while (rs.next()){
                 id = rs.getInt(1);
+                logger.info("Created new clearance " + id);
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            logger.debug(e.getMessage());
+            throw new DaoException(e);
         }
     }
 
@@ -111,7 +121,9 @@ public class ClearanceDaoImpl implements ClearanceDao {
             statement.setDate(3,sqlDateEnd);
             statement.setInt(4,clearance.getDiscount());
             statement.executeUpdate();
+            logger.info("Clearance " + clearance.getId() + " was updated");
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
     }

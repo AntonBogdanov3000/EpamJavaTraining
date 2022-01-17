@@ -5,10 +5,15 @@ import by.bogdanov.entity.User;
 import by.bogdanov.service.ServiceException;
 import by.bogdanov.service.ServiceFactory;
 import by.bogdanov.service.UserService;
-
 import javax.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class LoginCommandImpl implements Command {
+
+    private final Logger logger = LogManager.getLogger(LoginCommandImpl.class);
+
     @Override
     public String execute(HttpServletRequest request) {
         User user;
@@ -17,6 +22,7 @@ public class LoginCommandImpl implements Command {
         String password = request.getParameter("password");
         String login = request.getParameter("login");
         int idManager;
+
         try {
             user = userService.readUserByLogin(login);
             if(user.getRole()==2){
@@ -32,6 +38,7 @@ public class LoginCommandImpl implements Command {
                 return null;
             }
         }catch (ServiceException e){
+            logger.debug(e.getMessage());
             e.printStackTrace();
         }
         return null;

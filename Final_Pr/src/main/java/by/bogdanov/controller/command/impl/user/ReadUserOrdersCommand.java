@@ -9,8 +9,14 @@ import by.bogdanov.service.ServiceFactory;
 import by.bogdanov.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class ReadUserOrdersCommand implements Command {
+
+    private final Logger logger = LogManager.getLogger(ReadUserOrdersCommand.class);
+
     @Override
     public String execute(HttpServletRequest request) {
         User user;
@@ -20,9 +26,12 @@ public class ReadUserOrdersCommand implements Command {
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
         try {
             user = userService.readUserByLogin(request.getParameter("login"));
+            logger.info("User id: " + user.getId() + " read his order history");
             orderList = orderService.readOrdersByUserId(user.getId());
             request.setAttribute("orderList",orderList);
-        }catch (ServiceException e){}
+        }catch (ServiceException e){
+            logger.debug(e.getMessage());
+        }
         return page;
     }
 }

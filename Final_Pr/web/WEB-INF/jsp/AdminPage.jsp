@@ -48,6 +48,12 @@
     <fmt:message key="adminPage6" var="msg" bundle="${rb}"/>
     <input type="submit" value="${msg}"/>
 </form>
+<form action="${pageContext.request.contextPath}/control">
+    <input type="hidden" name="path" value="AdminCarListPage.jsp"/>
+    <input type="hidden" name="command" value="SHOW_ALL_CARS"/>
+    <fmt:message key="adminPage8" var="msg" bundle="${rb}"/>
+    <input type="submit" value="${msg}"/>
+</form>
 <form method="get">
     <input type="hidden" name="path" value="/main.jsp"/>
     <input type="hidden" name="command" value="LOGOUT"/>

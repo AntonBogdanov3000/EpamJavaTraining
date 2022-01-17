@@ -3,6 +3,7 @@ package by.bogdanov.controller.command.impl;
 import by.bogdanov.controller.command.Command;
 import javax.servlet.http.HttpServletRequest;
 
+
 public class LogoutCommandImpl implements Command {
 
     @Override

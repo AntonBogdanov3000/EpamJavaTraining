@@ -6,10 +6,13 @@ import by.bogdanov.dao.TransactionFactory;
 import by.bogdanov.dao.pool.ConnectionPool;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class TransactionFactoryImpl implements TransactionFactory {
 
-    private Connection connection;
+    private final Logger logger = LogManager.getLogger(TransactionFactoryImpl.class);
+    private  Connection connection;
 
 
     public TransactionFactoryImpl() throws DaoException {
@@ -17,12 +20,13 @@ public class TransactionFactoryImpl implements TransactionFactory {
         try {
             connection.setAutoCommit(true);
         }catch (SQLException e){
+            logger.info(e.getMessage());
             throw new DaoException(e);
         }
     }
 
     @Override
-    public Transaction createTransaction() throws DaoException {
+    public Transaction createTransaction() {
         return new TransactionImpl(connection);
     }
 
@@ -30,6 +34,8 @@ public class TransactionFactoryImpl implements TransactionFactory {
     public void close() {
     try {
         connection.close();
-    }catch (SQLException e){}
+    }catch (SQLException e){
+        logger.debug(e.getMessage());
+    }
     }
 }

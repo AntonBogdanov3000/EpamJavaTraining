@@ -6,10 +6,12 @@ import by.bogdanov.service.ServiceException;
 import by.bogdanov.service.ServiceFactory;
 import by.bogdanov.service.UserService;
 import javax.servlet.http.HttpServletRequest;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class RegistrationCommandImpl implements Command {
 
+    private final Logger logger = LogManager.getLogger(RegistrationCommandImpl.class);
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -25,7 +27,9 @@ public class RegistrationCommandImpl implements Command {
          page = request.getParameter("path");
         try {
             userService.createUser(user);
+            logger.info("New user has been created");
         }catch (ServiceException e){
+            logger.debug(e.getMessage());
             e.printStackTrace();
         }
         return page;

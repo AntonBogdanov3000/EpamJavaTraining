@@ -10,13 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Locale;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class ControllerServlet extends HttpServlet {
 
+ private final Logger logger = LogManager.getLogger(ControllerServlet.class);
 
     public void init() {
         ServiceFactory.getInstance().getConnectionService().startConnection();
+        logger.info("Servlet start");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,12 +38,8 @@ public class ControllerServlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String jspPage;
         String commandName;
-        System.out.println("servlet");
-
 
         HttpSession session = request.getSession();
-
-
 
         if (request.getParameter("command").isEmpty()) {
             String s = "/WEB-INF/jsp/" + request.getParameter("path");
@@ -48,6 +47,7 @@ public class ControllerServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
         } else {
             commandName = request.getParameter("command");
+            logger.info("Use a command " + commandName);
             Command command = provider.getCommand(commandName);
             String result = command.execute(request);
             jspPage = "/WEB-INF/jsp/" + result;

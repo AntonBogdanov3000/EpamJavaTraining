@@ -11,8 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class CreateOrderCommandImpl implements Command {
+
+    private final Logger logger = LogManager.getLogger(CreateOrderCommandImpl.class);
+
     @Override
     public String execute(HttpServletRequest request) {
         String page = request.getParameter("path");
@@ -45,9 +51,10 @@ public class CreateOrderCommandImpl implements Command {
             order.setManagerId(idManager);
             order.setOperationList(operationList);
             orderService.createOrder(order);
-
+            logger.info("Manager id: " + idManager + "has been created order " + OrderDaoImpl.id);
             operationService.createOrderOperation(OrderDaoImpl.id,operation.getId());
         }catch (ServiceException  e){
+            logger.debug(e.getMessage());
             e.printStackTrace();
         }
         return page;

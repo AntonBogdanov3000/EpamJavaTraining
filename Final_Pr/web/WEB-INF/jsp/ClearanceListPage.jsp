@@ -27,7 +27,7 @@
 <form action="${pageContext.request.contextPath}/control" method="get">
     <input type="hidden" name="path" value="ClearanceCreatePage.jsp"/>
     <input type="hidden" name="command" value="SHOW_PRICES"/>
-    <fmt:message key="clearanceListPage2" var="msg" bundle="${msg}"/>
+    <fmt:message key="clearanceListPage2" var="msg" bundle="${rb}"/>
     <input type="submit" value="${msg}"/>
 </form>
 </body>

@@ -1,6 +1,6 @@
 package by.bogdanov.dao;
 
 public interface TransactionFactory {
-    public Transaction createTransaction() throws DaoException;
+    public Transaction createTransaction();
     public void close();
 }

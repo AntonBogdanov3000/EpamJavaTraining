@@ -8,18 +8,24 @@ import by.bogdanov.service.ServiceException;
 import by.bogdanov.service.VehicleService;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class VehicleServiceImpl extends ServiceImpl implements VehicleService {
 
+    private final Logger logger = LogManager.getLogger(VehicleServiceImpl.class);
+
     @Override
     public List<Vehicle> readAllVehicles() throws ServiceException {
-        List<Vehicle> vehicleList = new ArrayList<>();
+        List<Vehicle> vehicleList;
         try{
             TransactionFactory factory = new TransactionFactoryImpl();
             transaction = factory.createTransaction();
             VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
-            vehicleList.addAll(vehicleDao.readAll());
+            vehicleList = vehicleDao.readAll();
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
         return vehicleList;
@@ -27,9 +33,9 @@ public class VehicleServiceImpl extends ServiceImpl implements VehicleService {
 
     @Override
     public List<Vehicle> readVehicleByUserId(int id) throws ServiceException {
-        List<Vehicle> vehicleList = new ArrayList<>();
+        List<Vehicle> vehicleList;
         List<Vehicle> result = new ArrayList<>();
-        User user = new User();
+        User user;
         try{
             TransactionFactory factory = new TransactionFactoryImpl();
             transaction = factory.createTransaction();
@@ -43,6 +49,7 @@ public class VehicleServiceImpl extends ServiceImpl implements VehicleService {
                 }
             }
         }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
         return result;
@@ -50,13 +57,16 @@ public class VehicleServiceImpl extends ServiceImpl implements VehicleService {
 
     @Override
     public Vehicle readByPlate(String plate) throws ServiceException {
-        Vehicle vehicle = new Vehicle();
+        Vehicle vehicle;
         try{
             TransactionFactory factory = new TransactionFactoryImpl();
             transaction = factory.createTransaction();
             VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
             vehicle = vehicleDao.readByPlate(plate);
-        }catch (DaoException e){}
+        }catch (DaoException e){
+            logger.debug(e.getMessage());
+            throw new ServiceException(e);
+        }
         return vehicle;
     }
 
@@ -68,6 +78,20 @@ public class VehicleServiceImpl extends ServiceImpl implements VehicleService {
             VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
             vehicleDao.create(vehicle);
         }catch (DaoException e){
+            logger.debug(e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void deleteVehicle(int id) throws ServiceException {
+        try{
+            TransactionFactory factory = new TransactionFactoryImpl();
+            transaction = factory.createTransaction();
+            VehicleDao vehicleDao = transaction.createDao(DaoEnum.VEHICLE_DAO);
+            vehicleDao.delete(id);
+        }catch (DaoException e){
+            logger.debug(e.getMessage());
             throw new ServiceException(e);
         }
     }

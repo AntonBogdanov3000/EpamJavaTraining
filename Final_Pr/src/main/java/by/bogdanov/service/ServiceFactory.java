@@ -17,19 +17,27 @@ public final class ServiceFactory {
     public static ServiceFactory getInstance(){
         return instance;
     }
+
     public UserService getUserService(){
         return userService;
     }
+
     public VehicleService getVehicleService(){
         return vehicleService;
     }
+
     public OrderService getOrderService(){
         return orderService;
     }
+
     public OperationService getOperationService(){
         return operationService;
     }
-    public ClearanceService getClearanceService() { return clearanceService; }
+
+    public ClearanceService getClearanceService(){
+        return clearanceService;
+    }
+
     public ConnectionService getConnectionService() {
         return connectionService;
     }

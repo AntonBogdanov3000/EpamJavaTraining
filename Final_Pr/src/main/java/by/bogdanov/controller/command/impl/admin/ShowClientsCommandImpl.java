@@ -8,8 +8,14 @@ import by.bogdanov.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class ShowClientsCommandImpl implements Command {
+
+    private final Logger logger = LogManager.getLogger(ShowClientsCommandImpl.class);
+
     @Override
     public String execute(HttpServletRequest request) {
         String page = request.getParameter("path");
@@ -26,6 +32,7 @@ public class ShowClientsCommandImpl implements Command {
             }
             request.setAttribute("clientList",clientList);
         }catch (ServiceException e){
+            logger.debug(e.getMessage());
             e.printStackTrace();
         }
         return page;

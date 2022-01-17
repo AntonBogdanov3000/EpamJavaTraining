@@ -7,10 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Statement;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 public class OrderDaoImpl implements OrderDao {
+
+    private final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
 
     private Connection connection;
     public OrderDaoImpl(Connection connection){
@@ -43,7 +46,9 @@ public class OrderDaoImpl implements OrderDao {
                 order.setManagerId(resultSet.getInt("manager_id"));
                 orderList.add(order);
             }
+            logger.info("OrderList contains " + orderList.size() + " orders");
         } catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return orderList;
@@ -65,7 +70,9 @@ public class OrderDaoImpl implements OrderDao {
             order.setManagerId(resultSet.getInt("manager_id"));
             order.setId(id);
             }
+            logger.info("Order read " + id);
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return order;
@@ -77,7 +84,9 @@ public class OrderDaoImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ORDER_BY_ID);
             statement.setInt(1,id);
             statement.executeUpdate();
+            logger.info("Order deleted " + id);
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
     }
@@ -96,8 +105,10 @@ public class OrderDaoImpl implements OrderDao {
             ResultSet rs = statement.getGeneratedKeys();
             while (rs.next()){
                 id = rs.getInt(1);
+                logger.info("Order created " + id);
             }
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -112,7 +123,9 @@ public class OrderDaoImpl implements OrderDao {
             statement.setInt(3,order.getPrice());
             statement.setLong(4,order.getId());
             statement.executeUpdate();
+            logger.info("Order " + order.getId() + " updated");
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
     }
@@ -135,7 +148,9 @@ public class OrderDaoImpl implements OrderDao {
                 order.setUserId(id);
                 orderList.add(order);
             }
+            logger.info("User " + id + " have " + orderList.size() + " orders ");
         }catch (SQLException e){
+            logger.debug(e.getMessage());
             throw new DaoException(e);
         }
         return orderList;

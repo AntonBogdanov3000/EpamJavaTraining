@@ -14,6 +14,7 @@ public class UserDaoImpl implements UserDao {
 
     private Logger logger = LogManager.getLogger(UserDaoImpl.class);
     private Connection connection;
+    public static int id;
 
     public UserDaoImpl(Connection connection){
         this.connection = connection;
@@ -94,7 +95,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void create(User user) throws DaoException {
      try{
-         PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER);
+         PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER,Statement.RETURN_GENERATED_KEYS);
          statement.setString(1,user.getName());
          statement.setString(2,user.getLastName());
          statement.setString(3,user.getPassword());
@@ -102,7 +103,11 @@ public class UserDaoImpl implements UserDao {
          statement.setString(5,user.getTelephone());
          statement.setInt(6,user.getRole());
          statement.executeUpdate();
-         logger.info("User created");
+         ResultSet rs = statement.getGeneratedKeys();
+         while (rs.next()){
+             id = rs.getInt(1);
+             logger.info("User created " + id);
+         }
      }catch (SQLException e){
          logger.debug(e.getMessage());
          throw new DaoException(e);

@@ -18,14 +18,27 @@ public class RegistrationCommandImpl implements Command {
         String page;
         UserService userService = ServiceFactory.getInstance().getUserService();
         User user = new User();
+
+
+        if(request.getParameter("name").isEmpty() || request.getParameter("lastname").isEmpty() ||
+        request.getParameter("password").isEmpty() || request.getParameter("login").isEmpty() ||
+        request.getParameter("telephone").isEmpty()){
+            request.setAttribute("nullDataForUser", "Empty enter is not valid");
+            return "registration.jsp";
+        }else{
+
          user.setName(request.getParameter("name"));
          user.setLastName(request.getParameter("lastname"));
          user.setPassword(request.getParameter("password"));
          user.setLogin(request.getParameter("login"));
          user.setTelephone(request.getParameter("telephone"));
          user.setRole(Integer.parseInt(request.getParameter("role")));
-         page = request.getParameter("path");
+            logger.info("!!" + request.getParameter("path"));
+         page = request.getParameter("path");}
         try {
+            if(user.getRole() == 2){
+                page = "AdminPage.jsp";
+            }
             userService.createUser(user);
             logger.info("New user has been created");
         }catch (ServiceException e){

@@ -24,14 +24,20 @@ public class ReadUserOrdersCommand implements Command {
         String page = request.getParameter("path");
         UserService userService = ServiceFactory.getInstance().getUserService();
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
-        try {
-            user = userService.readUserByLogin(request.getParameter("login"));
-            logger.info("User id: " + user.getId() + " read his order history");
-            orderList = orderService.readOrdersByUserId(user.getId());
-            request.setAttribute("orderList",orderList);
-        }catch (ServiceException e){
-            logger.debug(e.getMessage());
+
+        if (request.getParameter("login").isEmpty()) {
+            request.setAttribute("nullClientMessage", "Enter a correct Login");
+            page = "ManagerPage.jsp";
         }
-        return page;
-    }
+            try {
+                user = userService.readUserByLogin(request.getParameter("login"));
+                request.setAttribute("pageName", user.getName() + " " + user.getLastName());
+                logger.info("User id: " + user.getId() + " read his order history");
+                orderList = orderService.readOrdersByUserId(user.getId());
+                request.setAttribute("orderList", orderList);
+            } catch (ServiceException e) {
+                logger.debug(e.getMessage());
+            }
+            return page;
+        }
 }

@@ -5,10 +5,7 @@
 <fmt:setLocale value="${pageContext.session.getAttribute('locale')}"/>
 <fmt:setBundle basename="text" var="rb" scope="session"/>
 
-<html>
-<head>
-    <title>Title</title>
-</head>
+<!DOCTYPE html>
 <body>
 <form action="${pageContext.request.contextPath}/control" method="post">
     <input type="hidden" name="path" value="/ManagerPage.jsp"/>

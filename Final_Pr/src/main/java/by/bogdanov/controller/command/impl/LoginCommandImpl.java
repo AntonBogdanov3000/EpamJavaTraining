@@ -23,23 +23,34 @@ public class LoginCommandImpl implements Command {
         String login = request.getParameter("login");
         int idManager;
 
+        if(password.isEmpty() || login.isEmpty()){
+            request.setAttribute("errorLoginMessage", "Incorrect Login or Password");
+            return "LogInPage.jsp";
+        }
+
         try {
             user = userService.readUserByLogin(login);
+            request.getSession().setAttribute("userName", user.getName());
+            logger.info("User id: " + user.getId() + " " + user.getLogin() + " is login");
+            
             if(user.getRole()==2){
                 idManager = user.getId();
-                request.getSession().setAttribute("idManager", idManager);
+            } else{
+                idManager = 0;
             }
+            request.getSession().setAttribute("idManager", idManager);
             switch (user.getRole()){
                 case 1: return "welcomePage.jsp";
                 case 2: return "ManagerPage.jsp";
                 case 3: return "AdminPage.jsp";
             }
-            if(!user.getPassword().equals(password) || !user.getLogin().equals(login)){
-                return null;
-            }
+
         }catch (ServiceException e){
             logger.debug(e.getMessage());
             e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            logger.debug(e.getMessage());
         }
         return null;
     }

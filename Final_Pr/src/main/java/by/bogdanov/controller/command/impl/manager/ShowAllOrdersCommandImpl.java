@@ -20,13 +20,13 @@ public class ShowAllOrdersCommandImpl implements Command {
         String page = request.getParameter("path");
         List<Order> orderList;
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
-        String idManager = request.getParameter("idManager");
+        int idManager = (int) request.getSession().getAttribute("idManager");
         try{
-            if(idManager.isEmpty()) {
+            if(idManager == 0) {
                 orderList = orderService.readAllOrders();
             } else{
                 logger.info("Manager + " + idManager + "requested his order list");
-                orderList = orderService.readOrdersByManagerId(Integer.parseInt(idManager));
+                orderList = orderService.readOrdersByManagerId(idManager);
             }
             request.setAttribute("orderList", orderList);
         } catch (ServiceException e){

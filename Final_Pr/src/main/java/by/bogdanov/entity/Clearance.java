@@ -74,7 +74,7 @@ public class Clearance extends Entity{
         this.operation = operation;
     }
 
-    public Operation getOperationList() {
+    public Operation getOperation() {
         return operation;
     }
 

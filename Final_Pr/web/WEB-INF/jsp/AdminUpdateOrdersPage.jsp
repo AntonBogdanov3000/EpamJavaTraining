@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:setLocale value="${pageContext.session.getAttribute('locale')}"/>
@@ -17,44 +17,41 @@
 </head>
 <body>
 <div class="container">
-    <h2>Order history of client: ${pageContext.request.getAttribute('pageName')}</h2>
+    <h2><fmt:message key="adminUpdOrdersPage1" bundle="${rb}"/></h2>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Price</th>
-            <th>Operations</th>
-            <th>Manager</th>
+        <th>ID</th>
+        <th></th>
+        <th>Date</th>
+        <th>Price,$</th>
+        <th>Operations</th>
+        <th>Manager id</th>
+        <th>Client id</th>
         </tr>
         </thead>
         <tbody>
     <c:forEach var="order" items="${orderList}">
         <tr>
-            <td>${order.getId()}</td>
+            <td>${order.getId()}<td>
             <td>${order.getDate()}</td>
             <td>${order.getPrice()}</td>
             <td>${order.getOperationList()}</td>
             <td>${order.getManagerId()}</td>
+            <td>${order.getUserId()}</td>
             <td>
-            <form action="${pageContext.request.contextPath}/control">
-                <input type="hidden" name="path" value="/OrderToUpdatePage.jsp"/>
-                <input type="hidden" name="command" value="SHOW_PRICES"/>
-                <input type="hidden" name="updOrder" value="${order.getId()}"/>
-                <fmt:message key="ordersToUpdatePage1" var="msg" bundle="${rb}"/>
-                <input type="submit" class="btn btn-info" value="${msg}"/>
+            <form action="${pageContext.request.contextPath}/control" method="post">
+                <input type="hidden" name="path" value="AdminPage.jsp">
+                <input type="hidden" name="command" value="DELETE_ORDER">
+                <input type="hidden" name="order" value="${order.getId()}">
+                <fmt:message key="adminUpdOrdersPage2" var="msg" bundle="${rb}"/>
+                <input type="submit" class="btn-danger" value="${msg}"/>
             </form>
-            </td>
-            </tr>
+                </td>
+        </tr>
     </c:forEach>
         </tbody>
     </table>
-    </div>
-<form>
-    <input type="hidden" name="path" value="ManagerPage.jsp"/>
-    <input type="hidden" name="command" value=""/>
-    <fmt:message key="ordersToUpdatePage2" var="msg" bundle="${rb}"/>
-    <input type="submit" class="btn btn-success" value="${msg}"/>
-</form>
+</div>
 </body>
 </html>

@@ -19,7 +19,7 @@ private final Logger logger = LogManager.getLogger(ConnectionPool.class);
 	private  String user = "root";
 	private  String password = "admin";
 	private  String driverClass = "com.mysql.jdbc.Driver";
-	private int maxSize = 32;
+	private int maxSize = 320;
 	private int checkConnectionTimeout = 30;
 
 
@@ -74,7 +74,9 @@ private final Logger logger = LogManager.getLogger(ConnectionPool.class);
 			logger.warn("It is impossible to return database connection into pool", e1);
 			try {
 				connection.getConnection().close();
-			} catch(SQLException e2) {}
+			} catch(SQLException e2){
+				logger.debug(e2.getMessage());
+			}
 		}
 	}
 
@@ -113,7 +115,9 @@ private final Logger logger = LogManager.getLogger(ConnectionPool.class);
 		for(PooledConnection connection : usedConnections) {
 			try {
 				connection.getConnection().close();
-			} catch(SQLException e) {}
+			} catch(SQLException e) {
+				logger.debug(e.getMessage());
+			}
 		}
 		usedConnections.clear();
 	}

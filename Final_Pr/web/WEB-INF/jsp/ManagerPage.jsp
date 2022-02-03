@@ -15,9 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<fmt:message key="managerPage1" var="title_msg" bundle="${rb}"/>
-<h2>${title_msg}, ${userName}</h2>
 <div class="container">
+    <fmt:message key="managerPage1" var="title_msg" bundle="${rb}"/>
+    <h2>${title_msg}, ${userName}</h2>
     <div class="form-group">
 <form action="${pageContext.request.contextPath}/control">
     <input type="hidden" name="command" value=""/>
@@ -55,13 +55,20 @@ ${nullClientMessage}
         <input type="submit" class="btn btn-info form-control" name="myOrders" value="${msg}"/>
     </form>
     </div>
+    <div class="form-group">
+        <form action="${pageContext.request.contextPath}/control" method="post">
+            <input type="hidden" name="path" value="ClearanceListForUserPage.jsp">
+            <input type="hidden" name="command" value="SHOW_ALL_CLEARANCE">
+            <fmt:message key="managerPage7" var="msg" bundle="${rb}"/>
+            <button type="submit" class="form-control btn btn-info">${msg}</button>
+        </form>
+    </div>
 <form method="get">
     <input type="hidden" name="path" value="/main.jsp"/>
     <input type="hidden" name="command" value="LOGOUT"/>
     <fmt:message key="managerPage5" var="msg" bundle="${rb}"/>
     <input type="submit" class="btn btn-success" name="logout" value="${msg}"/>
 </form>
-
 </div>
 </body>
 </html>

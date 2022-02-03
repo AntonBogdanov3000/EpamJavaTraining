@@ -37,12 +37,15 @@ public class CreateOrderCommandImpl implements Command {
         try {
             int idManager = (int) request.getSession().getAttribute("idManager");
             user = userService.readUserByLogin(request.getParameter("login"));
-            vehicle = vehicleService.readByPlate(request.getParameter("vehicle"));
+            String car = request.getParameter("cars");
+            String carDelimeter = car.substring(0,car.indexOf('|'));
+            vehicle = vehicleService.readById(Integer.parseInt(carDelimeter));
             String s =  request.getParameter("operation");
             String delimiter = s.substring(4,s.indexOf('|'));
             operation = operationService.readOperationById(Integer.parseInt(delimiter));
 
             operationList.add(operation);
+
             order.setUserId(user.getId());
             order.setDate(new Date());
             order.setPrice(Integer.parseInt(request.getParameter("price")));
@@ -50,6 +53,7 @@ public class CreateOrderCommandImpl implements Command {
             order.setVehicle(vehicle);
             order.setManagerId(idManager);
             order.setOperationList(operationList);
+
             orderService.createOrder(order);
             logger.info("Manager id: " + idManager + "has been created order " + OrderDaoImpl.id);
             operationService.createOrderOperation(OrderDaoImpl.id,operation.getId());

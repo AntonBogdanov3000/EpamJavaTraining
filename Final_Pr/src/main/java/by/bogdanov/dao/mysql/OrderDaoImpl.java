@@ -46,6 +46,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setManagerId(resultSet.getInt("manager_id"));
                 orderList.add(order);
             }
+            connection.close();
             logger.info("OrderList contains " + orderList.size() + " orders");
         } catch (SQLException e){
             logger.debug(e.getMessage());
@@ -70,6 +71,7 @@ public class OrderDaoImpl implements OrderDao {
             order.setManagerId(resultSet.getInt("manager_id"));
             order.setId(id);
             }
+            connection.close();
             logger.info("Order read " + id);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -84,6 +86,7 @@ public class OrderDaoImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_ORDER_BY_ID);
             statement.setInt(1,id);
             statement.executeUpdate();
+            connection.close();
             logger.info("Order deleted " + id);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -107,6 +110,7 @@ public class OrderDaoImpl implements OrderDao {
                 id = rs.getInt(1);
                 logger.info("Order created " + id);
             }
+            connection.close();
         }catch (SQLException e){
             logger.debug(e.getMessage());
             e.printStackTrace();
@@ -123,6 +127,7 @@ public class OrderDaoImpl implements OrderDao {
             statement.setInt(3,order.getPrice());
             statement.setLong(4,order.getId());
             statement.executeUpdate();
+            connection.close();
             logger.info("Order " + order.getId() + " updated");
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -148,6 +153,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setUserId(id);
                 orderList.add(order);
             }
+            connection.close();
             logger.info("User " + id + " have " + orderList.size() + " orders ");
         }catch (SQLException e){
             logger.debug(e.getMessage());

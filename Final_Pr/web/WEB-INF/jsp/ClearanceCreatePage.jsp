@@ -14,38 +14,61 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .form form {
+            width: 300px;
+            height: border-box;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+    </style>
 </head>
-<form>
+<body>
+<div class="form">
+<form class="form-horizontal">
     <input type="hidden" name="path" value="AdminPage.jsp"/>
     <input type="hidden" name="command" value="CREATE_CLEARANCE"/>
-    <label><fmt:message key="clearanceCreatePage1" bundle="${rb}"/>:
+    <div class="form-group">
+        <div class="form-group">
+    <label class="col-sm-6"><fmt:message key="clearanceCreatePage1" bundle="${rb}"/>:</label>
+        <div class="col-sm-10">
         <select name="operation">
             <c:forEach items="${operationList}" var="operation">
                 <option>${operation}</option>
             </c:forEach>
         </select>
-    </label>
-    <br>
-    <label><fmt:message key="clearanceCreatePage2" bundle="${rb}"/>:
+        </div>
+    </div>
+        <div class="form-group">
+    <label class="col-sm-6"><fmt:message key="clearanceCreatePage2" bundle="${rb}"/>:</label>
+            <div class="col-sm-10">
         <input type="text" name="name">
-    </label>
-    <br>
-    <label><fmt:message key="clearanceCreatePage3" bundle="${rb}"/>:
+            </div>
+        </div>
+        <small> ${nullEnter}</small>
+     <div class="form-group">
+    <label class="col-sm-6"><fmt:message key="clearanceCreatePage3" bundle="${rb}"/> %:</label>
+        <div class="col-sm-10">
         <input type="text" name="discount"/>
-        </label>
-    <br>
-    <label><fmt:message key="clearanceCreatePage4" bundle="${rb}"/>:
+        </div>
+     </div>
+        <small>${wrongDiscount}</small>
+    <div class="form-group">
+    <label class="col-sm-6"><fmt:message key="clearanceCreatePage4" bundle="${rb}"/>:</label>
+        <div class="col-sm-10">
     <input type="date" name="startDate"/>
-    </label>
-    <br>
-    <label><fmt:message key="clearanceCreatePage5" bundle="${rb}"/>:
+        </div>
+    </div>
+        <div class="form-group">
+    <label class="col-sm-6"><fmt:message key="clearanceCreatePage5" bundle="${rb}"/>:</label>
+            <div class="col-sm-10">
     <input type="date" name="endDate"/>
-    </label>
-    <br>
+    </div>
+        </div>
+        <small>${IncorrectDate}</small>
     <fmt:message key="clearanceCreatePage6" var="msg" bundle="${rb}"/>
-    <input type="submit" value="${msg}"/>
+    <input type="submit" class="btn btn-success" value="${msg}"/>
 </form>
-<body>
-
+</div>
 </body>
 </html>

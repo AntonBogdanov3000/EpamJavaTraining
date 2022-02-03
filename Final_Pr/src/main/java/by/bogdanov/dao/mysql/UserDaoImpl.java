@@ -46,6 +46,7 @@ public class UserDaoImpl implements UserDao {
                 user.setTelephone(resultSet.getString("telephone"));
                 userList.add(user);
             }
+            connection.close();
             logger.info("UserList contains " + userList.size() + " users");
         } catch (SQLException e){
             logger.debug(e.getMessage());
@@ -71,6 +72,7 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("password"));
                 user.setId(id);
             }
+            connection.close();
             logger.info("User read " + user.getId());
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -85,6 +87,7 @@ public class UserDaoImpl implements UserDao {
         PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID);
         statement.setLong(1,id);
         statement.executeUpdate();
+        connection.close();
         logger.info("User " + id + " deleted");
     }catch (SQLException e){
         logger.debug(e.getMessage());
@@ -108,6 +111,7 @@ public class UserDaoImpl implements UserDao {
              id = rs.getInt(1);
              logger.info("User created " + id);
          }
+         connection.close();
      }catch (SQLException e){
          logger.debug(e.getMessage());
          throw new DaoException(e);
@@ -126,6 +130,7 @@ public class UserDaoImpl implements UserDao {
             statement.setInt(6,user.getRole());
             statement.setInt(7, user.getId());
             statement.executeUpdate();
+            connection.close();
             logger.info("User " + user.getId() + " updated");
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -150,6 +155,7 @@ public class UserDaoImpl implements UserDao {
                 user.setRole(resultSet.getInt("role"));
                 user.setLogin(login);
             }
+            connection.close();
             logger.info("Search for User with login " + login);
         } catch (SQLException e){
             logger.debug(e.getMessage());

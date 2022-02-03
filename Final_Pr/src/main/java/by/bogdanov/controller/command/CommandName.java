@@ -21,7 +21,8 @@ public enum CommandName {
     DELETE_ORDER,
     CHANGE_LANG,
     CREATE_CLEARANCE,
-    DELETE_CLEARANCE;
+    DELETE_CLEARANCE,
+    GET_CLIENT_CARS;
 
     public String getName(){
         return name();

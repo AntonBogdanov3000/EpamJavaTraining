@@ -36,15 +36,30 @@ public class CreateClearanceCommandImpl implements Command {
             clearance.setOperation(operationService.readOperationById((Integer.parseInt(delimiter))));
             clearance.setOperation_id(Integer.parseInt(delimiter));
             clearance.setName(request.getParameter("name"));
+
+            if(clearance.getName().isEmpty()){
+                request.setAttribute("nullEnter","Enter name of the clearance");
+                return "ClearanceCreatePage.jsp";
+            }
             clearance.setDiscount(Integer.parseInt(request.getParameter("discount")));
             clearance.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
             clearance.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
-            clearanceService.createClearance(clearance);
 
+            if(clearance.getEndDate().before(clearance.getStartDate())){
+                request.setAttribute("IncorrectDate","Incorrect End Date");
+            return "ClearanceCreatePage.jsp";
+            }
+            clearanceService.createClearance(clearance);
             operationService.createClearanceOperation(ClearanceDaoImpl.id, Integer.parseInt(delimiter));
+
         } catch (ServiceException | ParseException e){
+            request.setAttribute("IncorrectDate","Choose date");
             logger.debug(e.getMessage());
-            e.printStackTrace();
+            return "ClearanceCreatePage.jsp";
+
+        } catch (NumberFormatException e){
+            request.setAttribute("wrongDiscount","Enter must be a digit");
+            return "ClearanceCreatePage.jsp";
         }
         return page;
     }

@@ -38,4 +38,9 @@ public class TransactionFactoryImpl implements TransactionFactory {
         logger.debug(e.getMessage());
     }
     }
+
+    @Override
+    public Connection getConnection() {
+        return this.connection;
+    }
 }

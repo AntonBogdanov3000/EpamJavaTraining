@@ -1,6 +1,7 @@
 package by.bogdanov.controller.command.impl;
 
 import by.bogdanov.controller.command.Command;
+import by.bogdanov.controller.command.validators.LoginValidator;
 import by.bogdanov.entity.User;
 import by.bogdanov.service.ServiceException;
 import by.bogdanov.service.ServiceFactory;
@@ -18,12 +19,13 @@ public class LoginCommandImpl implements Command {
     public String execute(HttpServletRequest request) {
         User user;
         UserService userService = ServiceFactory.getInstance().getUserService();
+        LoginValidator loginValidator = new LoginValidator();
 
         String password = request.getParameter("password");
         String login = request.getParameter("login");
         int idManager;
 
-        if(password.isEmpty() || login.isEmpty()){
+        if(password.isEmpty() || login.isEmpty() || !loginValidator.checkLogin(login)){
             request.setAttribute("errorLoginMessage", "Incorrect Login or Password");
             return "LogInPage.jsp";
         }

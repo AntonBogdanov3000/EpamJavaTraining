@@ -48,7 +48,6 @@
             <input type="password" class="form-control" name="password" value=""/>
         </div>
     </div>
-
     <fmt:message key="loginPage3" var="msg" bundle="${rb}"/>
     <input type="submit" class="btn btn-success" value="${msg}"/>
 </form>

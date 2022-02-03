@@ -43,6 +43,7 @@ public class OperationDaoImpl implements OperationDao {
               operation.setOperationPrice(resultSet.getInt("price"));
               operationList.add(operation);
             }
+            connection.close();
             logger.info("OperationList contains " + operationList.size());
         } catch (SQLException e){
             logger.debug(e.getMessage());
@@ -63,6 +64,7 @@ public class OperationDaoImpl implements OperationDao {
                 operation.setOperationPrice(resultSet.getInt("price"));
                 operation.setId(id);
             }
+            connection.close();
             logger.info("Operation read by id = " + id );
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -77,6 +79,7 @@ public class OperationDaoImpl implements OperationDao {
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_OPERATION_BY_ID);
             statement.setLong(1,id);
             statement.executeUpdate();
+            connection.close();
             logger.info("Operation deleted " + id);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -92,6 +95,7 @@ public class OperationDaoImpl implements OperationDao {
             statement.setInt(2,operation.getOperationPrice());
             statement.setLong(3,operation.getId());
             statement.executeUpdate();
+            connection.close();
             logger.info("Operation created");
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -107,6 +111,7 @@ public class OperationDaoImpl implements OperationDao {
             statement.setInt(2,operation.getOperationPrice());
             statement.setLong(3,operation.getId());
             statement.executeUpdate();
+            connection.close();
             logger.info("Operation updated " + operation.getId());
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -121,6 +126,7 @@ public class OperationDaoImpl implements OperationDao {
             statement.setInt(1,order_id);
             statement.setInt(2,operation_id);
             statement.executeUpdate();
+            connection.close();
             logger.info("Order-Operation created " + order_id + "-" + operation_id);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -135,6 +141,7 @@ public class OperationDaoImpl implements OperationDao {
             statement.setInt(1,operation_id);
             statement.setInt(2,clear_id);
             statement.executeUpdate();
+            connection.close();
             logger.info("Clearance-Operation created " + clear_id + "-" + operation_id);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -155,6 +162,7 @@ public class OperationDaoImpl implements OperationDao {
                 operation.setOperationName(resultSet.getString("operation_name"));
                 operation.setOperationPrice(price);
             }
+            connection.close();
         }catch (SQLException e){
             logger.debug(e.getMessage());
             throw new DaoException(e);
@@ -174,6 +182,7 @@ public class OperationDaoImpl implements OperationDao {
                 Operation operation = readById(resultSet.getInt("operation_id"));
                 operationList.add(operation);
             }
+            connection.close();
             logger.info("Order " + id + " contains " + operationList.size() + " operations");
         }catch (SQLException e){
             logger.debug(e.getMessage());

@@ -1,6 +1,7 @@
 package by.bogdanov.controller.command.impl.user;
 
 import by.bogdanov.controller.command.Command;
+import by.bogdanov.controller.command.validators.LoginValidator;
 import by.bogdanov.entity.User;
 import by.bogdanov.service.ServiceException;
 import by.bogdanov.service.ServiceFactory;
@@ -15,10 +16,15 @@ public class RegistrationCommandImpl implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
+        LoginValidator loginValidator = new LoginValidator();
         String page;
         UserService userService = ServiceFactory.getInstance().getUserService();
         User user = new User();
 
+        if(loginValidator.checkLogin(request.getParameter("login"))){
+            request.setAttribute("incorrectLogin", "Current login is use");
+            return "registration.jsp";
+        }
 
         if(request.getParameter("name").isEmpty() || request.getParameter("lastname").isEmpty() ||
         request.getParameter("password").isEmpty() || request.getParameter("login").isEmpty() ||
@@ -26,8 +32,8 @@ public class RegistrationCommandImpl implements Command {
             request.setAttribute("nullDataForUser", "Empty enter is not valid");
             return "registration.jsp";
         }else{
-
          user.setName(request.getParameter("name"));
+         request.getSession().setAttribute("userName", user.getName());
          user.setLastName(request.getParameter("lastname"));
          user.setPassword(request.getParameter("password"));
          user.setLogin(request.getParameter("login"));

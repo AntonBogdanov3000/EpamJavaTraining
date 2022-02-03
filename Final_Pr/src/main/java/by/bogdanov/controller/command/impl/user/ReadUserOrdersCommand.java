@@ -1,6 +1,7 @@
 package by.bogdanov.controller.command.impl.user;
 
 import by.bogdanov.controller.command.Command;
+import by.bogdanov.controller.command.validators.LoginValidator;
 import by.bogdanov.entity.Order;
 import by.bogdanov.entity.User;
 import by.bogdanov.service.OrderService;
@@ -19,6 +20,7 @@ public class ReadUserOrdersCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
+        LoginValidator loginValidator = new LoginValidator();
         User user;
         List<Order> orderList;
         String page = request.getParameter("path");
@@ -26,15 +28,24 @@ public class ReadUserOrdersCommand implements Command {
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
 
         if (request.getParameter("login").isEmpty()) {
-            request.setAttribute("nullClientMessage", "Enter a correct Login");
+            request.setAttribute("nullClientMessage", "Enter must be not null");
             page = "ManagerPage.jsp";
         }
             try {
-                user = userService.readUserByLogin(request.getParameter("login"));
-                request.setAttribute("pageName", user.getName() + " " + user.getLastName());
-                logger.info("User id: " + user.getId() + " read his order history");
-                orderList = orderService.readOrdersByUserId(user.getId());
-                request.setAttribute("orderList", orderList);
+                if(!loginValidator.checkLogin(request.getParameter("login"))){
+                    request.setAttribute("nullClientMessage", "Enter customer login");
+                    page = "ManagerPage.jsp";
+                }
+                    user = userService.readUserByLogin(request.getParameter("login"));
+                if(user.getRole() != 1){
+                    request.setAttribute("nullClientMessage", "incorrect customer");
+                    return "ManagerPage.jsp";
+                }
+                    request.setAttribute("pageName", user.getName() + " " + user.getLastName());
+                    logger.info("User id: " + user.getId() + " read his order history");
+                    orderList = orderService.readOrdersByUserId(user.getId());
+                    request.setAttribute("orderList", orderList);
+
             } catch (ServiceException e) {
                 logger.debug(e.getMessage());
             }

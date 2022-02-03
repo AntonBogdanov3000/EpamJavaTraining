@@ -26,6 +26,12 @@
             background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/roa070118dpt-shops-04-1529463591.jpg");
             background-size: cover;
         }
+        .navbar-brand{
+            font-family: "Calibri Light";
+            font-size: x-large;
+            color: white;
+
+        }
     </style>
 </head>
 <body>

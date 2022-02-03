@@ -38,6 +38,14 @@
 </form>
     </div>
     <div class="form-group">
+        <form action="${pageContext.request.contextPath}/control" method="post">
+            <input type="hidden" name="path" value="ClearanceListForUserPage.jsp">
+            <input type="hidden" name="command" value="SHOW_ALL_CLEARANCE">
+            <fmt:message key="welcomePage5" var="msg" bundle="${rb}"/>
+            <button type="submit" class="form-control btn btn-info">${msg}</button>
+        </form>
+    </div>
+    <div class="form-group">
 <form>
     <input type="hidden" name="login" value="${pageContext.request.getParameter("login")}"/>
     <input type="hidden" name="path" value="/main.jsp"/>

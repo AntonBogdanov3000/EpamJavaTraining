@@ -30,33 +30,18 @@
         </tr>
         </thead>
         <tbody>
-<c:forEach var="clearance" items="${clearanceList}">
-    <tr>
-        <td>${clearance.getId()}</td>
-        <td>${clearance.getName()}</td>
-        <td>${clearance.getStartDate()}</td>
-        <td>${clearance.getEndDate()}</td>
-        <td>${clearance.getOperation()}</td>
-        <td>${clearance.getDiscount()}</td>
-        <td>
-        <form action="${pageContext.request.contextPath}/control" method="get">
-            <input type="hidden" name="path" value="AdminPage.jsp"/>
-            <input type="hidden" name="command" value="DELETE_CLEARANCE"/>
-            <input type="hidden" name="delClear" value="${clearance.getId()}"/>
-            <fmt:message key="clearanceListPage1" var="msg" bundle="${rb}"/>
-            <input type="submit" class="btn btn-danger" value="${msg}"/>
-        </form>
-        </td>
-    </tr>
-</c:forEach>
+        <c:forEach var="clearance" items="${clearanceList}">
+            <tr>
+                <td>${clearance.getId()}</td>
+                <td>${clearance.getName()}</td>
+                <td>${clearance.getStartDate()}</td>
+                <td>${clearance.getEndDate()}</td>
+                <td>${clearance.getOperation()}</td>
+                <td>${clearance.getDiscount()}</td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
-    <form action="${pageContext.request.contextPath}/control" method="get">
-        <input type="hidden" name="path" value="ClearanceCreatePage.jsp"/>
-        <input type="hidden" name="command" value="SHOW_PRICES"/>
-        <fmt:message key="clearanceListPage2" var="msg" bundle="${rb}"/>
-        <input type="submit" class="btn btn-success" value="${msg}"/>
-    </form>
 </div>
 </body>
 </html>

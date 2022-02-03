@@ -3,6 +3,7 @@ package by.bogdanov.controller.command;
 import by.bogdanov.controller.command.impl.*;
 import by.bogdanov.controller.command.impl.admin.*;
 import by.bogdanov.controller.command.impl.manager.CreateOrderCommandImpl;
+import by.bogdanov.controller.command.impl.manager.GetClientCarsCommandImpl;
 import by.bogdanov.controller.command.impl.manager.ShowAllOrdersCommandImpl;
 import by.bogdanov.controller.command.impl.manager.UpdateOrderCommandImpl;
 import by.bogdanov.controller.command.impl.user.AddCarCommandImpl;
@@ -41,6 +42,7 @@ public class CommandProvider {
         listCommand.put(CommandName.CREATE_CLEARANCE, new CreateClearanceCommandImpl());
         listCommand.put(CommandName.DELETE_CLEARANCE, new DeleteClearanceCommandImpl());
         listCommand.put(CommandName.DELETE_CAR, new DeleteCarCommandImpl());
+        listCommand.put(CommandName.GET_CLIENT_CARS, new GetClientCarsCommandImpl());
     }
     public Command getCommand(String text){
         logger.info("Command " + text);

@@ -68,7 +68,7 @@ public class Vehicle extends Entity {
     }
 
     public String toString(){
-        return this.id + " " + this.model + " " + this.year +
+        return " " + this.id + "|"+ " " + this.model + " " + this.year +
                 "\n" + "Mileage: "+ this.mileage +
                 "\n" + "Plate: " + this.plate +
                 "\n" + "Client id : "+ this.ownerId + "\n";

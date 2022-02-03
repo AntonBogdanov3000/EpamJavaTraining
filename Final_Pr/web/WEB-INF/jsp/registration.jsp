@@ -13,10 +13,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .form form {
+            width: 300px;
+            height: border-box;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        body{
+            background-image: url("http://i.imgur.com/9bA8cj6.jpg");
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<form action="${pageContext.request.contextPath}/control" method="post">
+<div class="form">
+<form class="form-horizontal" action="${pageContext.request.contextPath}/control" method="post">
     <input type="hidden" name="command" value="REGISTRATION"/>
     <input type="hidden" name="role" value="${pageContext.request.getParameter("role")}"/>
     <c:set var="number" value="${pageContext.request.getParameter('number')}"/>
@@ -29,30 +41,43 @@
     <c:if test="${number == 2}">
         <input type="hidden" name="path" value="/ManagerPage.jsp"/>
     </c:if>
+
     <div class="form-group">
-    <label><fmt:message key="registrationPage1" bundle="${rb}"/>:
+        <div class="form-group">
+
+    <div class="form-group">
+    <label class="col-sm-4"><fmt:message key="registrationPage1" bundle="${rb}"/>:</label>
+        <div class="col-sm-10">
         <input type="text" class="form-control" name="name" value=""/>
-    </label>
+        </div>
     </div>
+
     <div class="form-group">
-    <label><fmt:message key="registrationPage2" bundle="${rb}"/>:
+    <label class="col-sm-10"><fmt:message key="registrationPage2" bundle="${rb}"/>:</label>
+        <div class="col-sm-10">
         <input type="text" class="form-control" name="lastname" value=""/>
-    </label>
+        </div>
     </div>
+
     <div class="form-group">
-    <label><fmt:message key="registrationPage3" bundle="${rb}"/>:
+    <label class="col-sm-4"><fmt:message key="registrationPage3" bundle="${rb}"/>:</label>
+        <div class="col-sm-10">
         <input type="password" class="form-control" name="password" value=""/>
-    </label>
+        </div>
     </div>
+
     <div class="form-group">
-    <label><fmt:message key="registrationPage4" bundle="${rb}"/>:
+    <label class="col-sm-4"><fmt:message key="registrationPage4" bundle="${rb}"/>:</label>
+        <div class="col-sm-10">
         <input type="text" class="form-control" name="login" value=""/>
-    </label>
+        </div>
     </div>
+            <small>${incorrectLogin}</small>
     <div class="form-group">
-    <label><fmt:message key="registrationPage5" bundle="${rb}"/>:
+    <label class="col-sm-4"><fmt:message key="registrationPage5" bundle="${rb}"/>:</label>
+        <div class="col-sm-10">
         <input type="text" class="form-control" name="telephone" value=""/>
-    </label>
+        </div>
     </div>
     ${nullDataForUser}
     <p></p>

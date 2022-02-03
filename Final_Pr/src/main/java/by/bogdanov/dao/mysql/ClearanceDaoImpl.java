@@ -42,6 +42,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
                 clearance.setEndDate(resultSet.getDate("end_date"));
                 clearance.setDiscount(resultSet.getInt("discount"));
                 clearanceList.add(clearance);
+                connection.close();
             }
             logger.info("ClearanceList contains " + clearanceList.size());
         } catch (SQLException e){
@@ -66,6 +67,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
                 clearance.setDiscount(resultSet.getInt("discount"));
                 clearance.setId(id);
             }
+            connection.close();
             logger.info("Clearance read by id = " + id );
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -80,6 +82,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_CLEARANCE_BY_ID);
             statement.setInt(1,id);
             statement.executeUpdate();
+            connection.close();
             logger.info("Clearance deleted id " + id);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -104,6 +107,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
                 id = rs.getInt(1);
                 logger.info("Created new clearance " + id);
             }
+            connection.close();
         }catch (SQLException e){
             logger.debug(e.getMessage());
             throw new DaoException(e);
@@ -121,6 +125,7 @@ public class ClearanceDaoImpl implements ClearanceDao {
             statement.setDate(3,sqlDateEnd);
             statement.setInt(4,clearance.getDiscount());
             statement.executeUpdate();
+            connection.close();
             logger.info("Clearance " + clearance.getId() + " was updated");
         }catch (SQLException e){
             logger.debug(e.getMessage());

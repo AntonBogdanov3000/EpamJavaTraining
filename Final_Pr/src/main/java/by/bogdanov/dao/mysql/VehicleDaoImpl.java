@@ -45,6 +45,7 @@ public class VehicleDaoImpl implements VehicleDao {
                 vehicle.setMileage(resultSet.getInt("mileage"));
                 vehiclesList.add(vehicle);
             }
+            connection.close();
             logger.info("VehicleList contains " + vehiclesList.size() + " cars");
         } catch (SQLException e){
             logger.debug(e.getMessage());
@@ -67,7 +68,9 @@ public class VehicleDaoImpl implements VehicleDao {
             vehicle.setOwnerId(resultSet.getInt("owner_id"));
             vehicle.setYear(resultSet.getInt("year"));
             vehicle.setMileage(resultSet.getInt("mileage"));
+            vehicle.setId(id);
             }
+            connection.close();
             logger.info("Read vehicle " + id);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -82,6 +85,7 @@ public class VehicleDaoImpl implements VehicleDao {
             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_VEHICLE_BY_ID);
             statement.setLong(1,id);
             statement.executeUpdate();
+            connection.close();
             logger.info("Vehicle id: " + id + " deleted");
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -116,6 +120,7 @@ public class VehicleDaoImpl implements VehicleDao {
             statement.setInt(5,vehicle.getYear());
             statement.setLong(6,vehicle.getId());
             statement.executeUpdate();
+            connection.close();
             logger.info("Vehicle " + vehicle.getPlate() + " updated");
         }catch (SQLException e){
            logger.debug(e.getMessage());
@@ -139,6 +144,7 @@ public class VehicleDaoImpl implements VehicleDao {
                 vehicle.setYear(year);
                 list.add(vehicle);
             }
+            connection.close();
             logger.info("Search for vehicles manufactured in " + year);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -163,6 +169,7 @@ public class VehicleDaoImpl implements VehicleDao {
                 vehicle.setYear(resultSet.getInt("year"));
                 vehicle.setPlate(plate);
             }
+            connection.close();
             logger.info("Search for vehicle with plates " + plate);
         }catch (SQLException e){
             logger.debug(e.getMessage());
@@ -170,5 +177,4 @@ public class VehicleDaoImpl implements VehicleDao {
         }
         return vehicle;
     }
-
 }
